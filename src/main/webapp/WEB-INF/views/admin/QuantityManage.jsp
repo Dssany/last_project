@@ -429,7 +429,7 @@ $(document).ready(function() {
                         <div class="white-box">
                             <h3 class="box-title">PRODUCT MANAGE</h3>
 <!-- 여기서 부터 내용 -->
-					<div class="util"><input type="button" class="btn" id="AddProduct" value="상품등록">&nbsp;<button type="button" class="btn" id="Delbutton">글삭제</button></div>
+					<div class="util"><input type="button" class="btn" id="AddProduct" value="상품등록">&nbsp;<button type="button" class="btn" id="Delbutton">상품삭제</button></div>
 
 <div align="center" class="div1">
    <table border="1" class="table" id="thetable">
@@ -477,11 +477,7 @@ $(document).ready(function() {
          <td><input type="button" class="Modifybtn1 btn" value="수정"/><input type="button" class="Deletebtn1 btn" value="삭제"/></td>
       </tr>
       </c:forEach>
-      <tr class="rows">
-         <td colspan="5" style="text-align: center;">
-            <button type="button" class="btn" id="Delbutton">글삭제</button>
-         </td>
-      </tr>
+      
    </table>
    <!-- 검색 form -->
       <div id="acsearch" class="div2">

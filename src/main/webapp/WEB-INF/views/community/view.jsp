@@ -472,7 +472,7 @@ font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Ap
     <a href="list" class="btn">목록으로</a>
     <c:if test="${sessionScope.id == view.writer }">
    
-    <input type="submit" value="수정하기" style="border: 0px;" >
+    <input type="submit" class="btn" value="수정하기">
     <a href="delete?bno=${view.bno}" class="btn">삭제하기</a>
     </c:if>
     </div>

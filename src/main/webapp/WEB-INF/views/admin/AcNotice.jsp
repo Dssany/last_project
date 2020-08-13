@@ -31,14 +31,19 @@
 <title>공지사항 관리 페이지</title>
 <style type="text/css">
 .div1 {
-padding-top: 200px;
+padding-top:10px;
 padding-bottom: 30px;
 }
 .div2{
-padding-top: 40px;
+
 }
 </style>
 <style type="text/css">
+
+a{
+	text-decoration: none;
+	color:#000;
+}
 .table {
       border-collapse: collapse;
       border-top: 3px solid #168;
@@ -60,16 +65,21 @@ padding-top: 40px;
     .table tr td:first-child{
       text-align: center;
     }
-     td:nth-child(2){
+    td:nth-child(2){
+    	
     	text-align: center;
     }
-      td:nth-child(4){
+     td:nth-child(3){
+		width:50%;    	
+    }
+ 
+    td:nth-child(4){
     	text-align: center;
     }
       td:nth-child(5){
     	text-align: center;
     }
-      td:nth-child(6){
+    td:nth-child(6){
     	text-align: center;
     }
    .rows:hover {
@@ -358,16 +368,20 @@ function ad(d) {
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="white-box">
                             <h3 class="box-title">NOTICE MANAGE</h3>
+                            <div class="util">
+                            	<button type="button" class="btn" id="Delbutton">삭제</button>
+            <button type="button" class="btn" onclick ="location.href='InsNotice'">등록</button>
+                            </div>
 <!-- 여기서 부터 내용 -->
-					<div align="center" class="div1" style="padding-top: 30px;">
+					<div align="center" class="div1">
    <table border="1" class="table">
          <tr>
             <th></th>
-            <th style="width: 10%;">번호</th>
-            <th style="width: 50%;">제목</th>
-            <th style="width: 10%;">작성자</th>
-            <th style="width: 10%;">작성일</th>
-            <th style="width: 10%;">조회수</th>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>조회수</th>
          </tr>
       <c:forEach var="adminList" items="${listAll}">
       <tr class="rows">
@@ -381,17 +395,12 @@ function ad(d) {
          <td>${adminList.viewcnt }</td>
       </tr>
       </c:forEach>
-      <tr>
-         <td colspan="6" style="text-align: center;">
-            <button type="button" class="btn" id="Delbutton">삭제</button>
-            <button type="button" class="btn" onclick ="location.href='InsNotice'">등록</button>
-         </td>
-      </tr>
+      
    </table>
    <!-- 검색 form -->
       <div id="acsearch" class="div2">
          <!-- search{s} -->
-         <div style="padding-bottom: 20px; display: flex; flex: row; margin: 0 auto; width: 280px;">
+         <div style="padding-bottom: 20px; display: flex; flex: row; margin: 0 auto; width: 300px;">
             <div class="w100" style="padding-right: 10px">
                <select class="form-control form-control-sm" name="searchType"
                   id="searchType">

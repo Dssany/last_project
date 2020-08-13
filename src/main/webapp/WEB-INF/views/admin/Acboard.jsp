@@ -31,9 +31,17 @@
 <title>(관리자)게시판 관리</title>
 
 <style type="text/css">
+
+a{
+	text-decoration: none;
+	color:#000;
+}
+.div1{
+padding-top:10px;
+}
 .table {
       border-collapse: collapse;
-      border-top: 3px solid #000;
+      border-top: 3px solid #168;
     }  
     .table th {
       color: #168;

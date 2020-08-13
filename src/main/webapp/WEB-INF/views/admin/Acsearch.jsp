@@ -199,6 +199,7 @@ function title_search() {
 </script>
 <style type="text/css">
 .div1 {
+padding-top:10px;
 padding-bottom: 30px;
 }
 .div2{
@@ -218,7 +219,7 @@ padding-top: 40px;
     .table th {
       color: #168;
       background: #f0f6f9;
-/*       text-align: center; */
+       text-align: center; 
     }
     .table th, .table td {
       padding: 10px;
@@ -269,7 +270,23 @@ background: #7d7d7d;
 	color:white;
 	transition: all 0.12s ease-in-out;
 }
-
+ td:nth-child(2){
+    	
+    	text-align: center;
+    }
+     td:nth-child(3){
+		width:50%;    	
+    }
+ 
+    td:nth-child(4){
+    	text-align: center;
+    }
+      td:nth-child(5){
+    	text-align: center;
+    }
+    td:nth-child(6){
+    	text-align: center;
+    }
 .util{
 padding-bottom: 10px;}
 </style>
@@ -392,7 +409,7 @@ padding-bottom: 10px;}
                      <c:forEach var="list" items="${listAll}">
                   <tr class="rows">
                   <c:choose>
-                     <c:when test="${list.id eq '/admin/' }">
+                     <c:when test="${list.id.contains('/admin/')}">
                         <c:set var="doneLoop" value="true"/> 
                      </c:when>
                      <c:otherwise>

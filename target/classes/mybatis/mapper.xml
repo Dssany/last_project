@@ -142,13 +142,11 @@
 
    <!-- Q&A 게시물 관련 -->
    <select id="selectAll_Commnuity" resultType="comdto">
-      select * from (select rownum num, a.* from (select * from board_sys
-      order by writer asc, bno desc) a ) where num between #{start} and #{end}
-    
+      select * from (select rownum num, a.* from (select * from board_sys order by case when writer like '/admin/' then writer end asc,bno desc) a ) where num between #{start} and #{end}
    </select>
    <select id="selectAdminAll_Commnuity" resultType="comdto">
       select * from
-      board_sys where writer='관리자' order by bno asc
+      board_sys where writer='관리자' order by bno desc
    </select>
    <select id="view_Commnuity" resultType="comdto">
       select * from board_sys
@@ -164,15 +162,15 @@
    
    <select id="listSearch_title" resultType="comdto" parameterType="comdto">
       select * from (select rownum num, a.* from (select * from board_sys where title LIKE '%'||#{title}||'%'
-      order by writer desc, bno desc) a ) where num between #{start} and #{end}
+      order by case when writer like '/admin/' then writer end asc, bno desc) a ) where num between #{start} and #{end}
    </select>
    <select id="listSearch_Content" resultType="comdto" parameterType="comdto">
-      select * from (select rownum num, a.* from (select * from board_sys where content like '%'||#{content}||'%'
-      order by writer desc, bno desc) a ) where num between #{start} and #{end}
+      select * from (select rownum num, a.* from (select * from board_sys where title LIKE '%'||#{title}||'%'
+      order by case when writer like '/admin/' then writer end asc, bno desc) a ) where num between #{start} and #{end}
    </select>
    <select id="listSearch" resultType="comdto" parameterType="comdto">
-      select * from (select rownum num, a.* from (select * from board_sys where writer = #{writer}
-      order by writer desc, bno desc) a ) where num between #{start} and #{end}
+      select * from (select rownum num, a.* from (select * from board_sys where title LIKE '%'||#{title}||'%'
+      order by case when writer like '/admin/' then writer end asc, bno desc) a ) where num between #{start} and #{end}
    </select>
    <select id="listSearch_title_count" resultType="String" parameterType="comdto">
       select count(*) from board_sys where title like '%'||#{title}||'%'

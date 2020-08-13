@@ -32,7 +32,6 @@
 <title>(관리자)게시판 관리</title>
 <style type="text/css">
 .div1 {
-padding-top:50px;
 padding-bottom: 50px;
 }
 .div2{
@@ -332,7 +331,7 @@ function title_search() {
                         <div class="white-box">
                             <h3 class="box-title">BUY MANAGE</h3>
 <!-- 여기서 부터 내용 -->
-               <div align="center" class="div1" style="padding-top: 50px;">
+               <div align="center" class="div1">
                
    <table border="1" class="table">
    <caption style="text-align:right;">

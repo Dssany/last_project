@@ -7,37 +7,66 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-   if('${sessionScope.id.split("_")[0]}'=="/admin/"){
+   
+	
+	
+	if('${sessionScope.id.split("_")[0]}'=="/admin/"){
          location.href="acboardIns"
    }
-   $("#btnSave").click(function(){
-      var title = $("#title").val();
-      var content = $("#content").val();
-      var writer = $("#writer").val();
-      if(title == "") {
-         swal("제목을 입력하세요");
-         document.form1.title.focus();
-         return;
-      }
-      if(content == "") {
-         swal("내용을 입력하세요");
-         document.form1.content.focus();
-         return;
-      }
-//       if(writer == "") {
-//          swal("이름을 입력하세요");
-//          document.form1.writer.focus();
-//          return;
-//       }
-      document.form1.submit();
-   });
+	
+	
+  
 });
 </script>
-
+<script type="text/javascript">
+var oEditors = [];
+$(function(){
+      nhn.husky.EZCreator.createInIFrame({
+          oAppRef: oEditors,
+          elPlaceHolder: "smarteditor", //textarea에서 지정한 id와 일치해야 합니다. 
+          //SmartEditor2Skin.html 파일이 존재하는 경로
+          sSkinURI: "resources/smarteditor/SmartEditor2Skin.html",  
+          htParams : {
+              // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+              bUseToolbar : true,             
+              // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+              bUseVerticalResizer : true,     
+              // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+              bUseModeChanger : true,         
+              fOnBeforeUnload : function(){
+                   
+              }
+          }, 
+          fOnAppLoad : function(){
+              //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+              oEditors.getById["smarteditor"].exec("PASTE_HTML",['']);
+          },
+          fCreator: "createSEditor2"
+          
+      });
+      
+      //저장버튼 클릭시 form 전송
+      $("#btnSave").click(function(){
+          oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+          var title = $("#title").val();
+          var writer = $("#writer").val();
+          if(title == "") {
+             swal("제목을 입력하세요");
+             document.form1.title.focus();
+             return;
+          }
+          
+          $("#frm").submit();
+      });    
+});
+ 
+</script>
 <style type="text/css">
 .div1 {
 padding-top: 200px;
@@ -104,7 +133,7 @@ background: #7d7d7d;
 </c:if>
 <jsp:include page="../default/header.jsp"/>
 <div align="center" class="div1">
-   <form name="form1" action="save_write" method="post">
+   <form id="frm" name="form1" action="save_write" method="post">
      <table class="board_view">
      
       <caption>글 작성</caption>
@@ -133,7 +162,7 @@ background: #7d7d7d;
    <tr>
       <th>내용 :</th>
       <td>
-      <textarea name="content" id="content" placeholder="내용을 입력하세요."
+      <textarea name="content" id="smarteditor" placeholder="내용을 입력하세요."
       style="height:200px;
                     width: 700px;"></textarea>
    </tr>
