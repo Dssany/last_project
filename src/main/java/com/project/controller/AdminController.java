@@ -45,9 +45,29 @@ public class AdminController {
    }
       
    @RequestMapping("acsearch")
-   public String acsearch(Model model,UserDTO dto) {
-      service.select(model,dto);
+   public String acsearch(Model model, UserDTO dto,@RequestParam(required = false) String idval, @RequestParam(required = false) String acsearchstart,@RequestParam(required = false) String acsearchend) {
+      if(idval!=null) {
+      System.out.println("idval"+idval);
+      String[] arr = idval.split(" ");
+      if (arr[0].contains(",")) {
+         if (arr[0].split(",")[1].equals("myinfo")) {
+            service.delete(arr[0].split(",")[0]);
+         }
+         return "redirect:index";
+      } else {
+         for (int i = 0; i < arr.length; i++) {
+            service.delete(arr[i]);
+         }
+      }
+      
+      }
+      if(acsearchstart!=null) {
+         dto.setStart(acsearchstart);
+         dto.setEnd(acsearchend);
+      }
+      service.select(model, dto);
       return "admin/Acsearch";
+      
    }
    @RequestMapping("acboard")
    public String acboard(Model model,CommnuityDTO dto) {

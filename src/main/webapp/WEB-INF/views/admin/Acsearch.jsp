@@ -79,7 +79,9 @@ $(document).ready(function() {
                 text: '성공적으로 삭제되었습니다!',
                 icon: 'success',
                preConfirm:function(){
-                    location.href="DelUser?idval="+str
+//                     location.href="DelUser?idval="+str
+               $("#idval").val(str)
+                    acsearch_form.submit();
                 }
              })
            }
@@ -482,6 +484,11 @@ padding-bottom: 10px;}
 <form name="adminHeader_form" method="post">
    <input type="hidden" id="adminHeader_form_start" name="start" value="1">
    <input type="hidden" id="adminHeader_form_end" name="end" value="10">
+</form>
+<form action="acsearch" method="post" name="acsearch_form">
+   <input type="hidden" name='acsearchstart' value="1">
+   <input type="hidden" name='acsearchend' value="10">
+   <input type="hidden" name="idval" id="idval">
 </form>
 </body>
 </html>
