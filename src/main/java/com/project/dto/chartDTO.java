@@ -15,12 +15,12 @@ public class chartDTO {
    }
    
    
-   public int getBagPhon() {
+   public int getPhonPrice() {
    return phonPrice;
 }
 
 
-public void setBagPhon(int phonPrice) {
+public void setPhonPrice(int phonPrice) {
    this.phonPrice = phonPrice;
 }
 

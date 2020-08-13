@@ -54,6 +54,8 @@
     .table tr td:first-child{
       text-align: center;
     }
+    
+   
    
      .div1 {
 /*    padding-top: 200px; */
@@ -62,6 +64,48 @@
    .div2{
    padding-top: 40px;
    }
+ 
+
+ .rows:hover {
+  background-color: #ececff !important;
+  cursor: auto;
+   background: url('../images/icons/pointer.gif') no-repeat ;
+  background-position: left center ;
+  background-size: 10px;
+}
+
+.btn{
+font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Apple SD Gothic Neo",sans-serif;
+    color: #7d7d7d;
+    font-size: 12px;
+    height: 27px;
+    line-height: 27px;
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+    text-align: left;
+    padding: 0px 8px 0 9px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    margin: 0;
+    display: inline-block;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+   
+}
+.btn:hover{
+background: #7d7d7d;
+	color:white;
+	transition: all 0.12s ease-in-out;
+}
+.util{
+padding-bottom: 10px;
+
+}
 </style>
 </head>
 
@@ -72,6 +116,112 @@
    location.href="index"
 </script>
 </c:if>
+<script type="text/javascript">
+var size= '${list_size}';
+var ssize;
+var zxc=1;
+function number_click(age) {
+   zxc=age;
+      if($("#search_result_init").val()==""){
+           $("#start"+age).val((parseInt(age)*10)-9);
+           $("#last"+age).val(parseInt(age)*10);
+           $("#numbtn"+age).trigger("click");
+        }else{
+           $("#search_result").val($("#search_result_init").val());
+           $("#type_result").val($("#type_result_init").val());
+           $("#start_result").val((parseInt(age)*10)-9);
+           $("#end_result").val(parseInt(age)*10);
+           list_form.submit();
+        }
+}
+function number_onedown() {
+    
+    if('${Integer.valueOf(list_last/10)-1>1}')
+    number_click('${Integer.valueOf(list_last/10)-1}');
+}
+function number_oneup() {
+     var m;
+     if('${list_size%10>0}'=='true'){
+        m='${Integer.valueOf(list_size/10)+2}';
+     }else{
+        m='${Integer.valueOf(list_size/10+1)}';
+     }
+     if(parseInt('${Integer.valueOf(list_last/10)+1}')<parseInt(m))
+     number_click('${Integer.valueOf(list_last/10)+1}');
+}
+function number_up() {
+     if('${list_size%10>0}'=='true'){
+        number_click('${Integer.valueOf(list_size/10)+1}');
+     }else{
+        number_click('${Integer.valueOf(list_size/10)}');
+     }
+}
+function number_down() {
+     number_click(1);
+}
+if(size>10){
+      $(function (){
+            $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_down()'><<</div> ");
+            $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_onedown()'><</div> ");
+            if('${list_size%10>0}'=='true'){
+               ssize='${Integer.valueOf(list_size/10)+1}';
+           }else{
+              ssize='${Integer.valueOf(list_size/10)}';
+           }
+            var act
+            if('${list_choice_result}'==''){
+            	act='QuantityManage';
+            }else{
+            	act='categorySelect';
+            }
+            for(i=0;i<ssize;i++){
+               $('#num_2').append("<div id='a"+(i+1)+"' style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer; margin-left:10px;' onclick='number_click("+(i+1)+")'>"+(i+1)+"</div>");
+            $("#num_2").append("<form action="+act+" method='post' name='numbtn"+(i+1)+"'>"
+                    +"<input type='hidden' name='start' id='start"+(i+1)+"'>"
+                    +"<input type='hidden' name='end' id='last"+(i+1)+"'>"
+                    +"<input type='hidden' name='choice' value='${list_choice_result}'>"
+                    +"<input type='submit' style='display:none;' id='numbtn"+(i+1)+"'>"
+                  +"</form>");
+            if(i+1=='${Integer.valueOf(list_last/10)}'){
+               $("#a"+(i+1)).css("background-color","#383838f2");
+               $("#a"+(i+1)).css("color","#fff");
+            }
+         }
+         $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='javascript:number_oneup();' style='text-decoration: none;'>></a></div> ");
+         $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='javascript:number_up();' style='text-decoration: none;'>>></a></div>");
+      });
+   }else{
+      $(function (){
+         $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'><<</a></div> ");
+         $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'><</a></div> ");
+         $('#num_2').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>1</a></div>");
+         $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>></a></div> ");
+         $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>>></a></div>");
+      });
+   }
+
+
+function title_search() {
+    
+    alert($("#searchType").val());
+    //타입 입력
+    $("#type_result").val($("#searchType").val());
+    
+    if($("#searchType").val()=="title"){
+       $("#search_result").val($("#keyword").val());
+       alert($("#search_result").val());
+       list_form.submit();
+    }else if($("#searchType").val()=="Content"){
+       $("#search_result").val($("#keyword").val());
+       alert($("#search_result").val());
+       list_form.submit();
+    }else{
+       $("#search_result").val($("#keyword").val());
+       alert($("#search_result").val());
+       list_form.submit();
+    }
+ }
+</script>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -109,13 +259,23 @@ $(document).ready(function() {
    $("#category").change(function(){ 
       var choice = document.getElementById("category").value
       console.log(choice)
-        location.href="categorySelect?choice="+choice;
+        location.href="categorySelect?choice="+choice+"&start=1&end=10";
     
        });
    
    
    $("#AddProduct").click(function(){
-      window.open("AddProductPopup","상품등록","width=700px,height=500px");
+	   
+	   var _width = '600';
+	    var _height = '400';
+	 
+	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+	    var _left = Math.ceil(( window.screen.width - _width )/2);
+	    var _top = Math.ceil(( window.screen.height - _height )/2); 
+	 
+	    window.open('AddProductPopup', '상품등록', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top ,'location=no');
+
+	   
       
    });
    
@@ -224,20 +384,20 @@ $(document).ready(function() {
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 70px 0 0;">
+                     <li style="padding: 70px 0 0;">
                         <a href="adminindex" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>관리자 메인</a>
                     </li>
                     <li>
-                        <a href="acsearch" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
+                        <a href="javascript:ad('acsearch');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
                     </li>
                     <li>
-                        <a href="acboard" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
+                        <a href="javascript:ad('acboard');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
                     </li>
                     <li>
-                        <a href="acnotice" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
+                        <a href="javascript:ad('acnotice');" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
                     </li>
                     <li>
-                        <a href="QuantityManage" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
+                        <a href="javascript:ad('QuantityManage');" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
                     </li>
                     <li>
                         <a href="javascript:ad('accart');" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>구매내역 관리</a>
@@ -269,7 +429,7 @@ $(document).ready(function() {
                         <div class="white-box">
                             <h3 class="box-title">PRODUCT MANAGE</h3>
 <!-- 여기서 부터 내용 -->
-					<div><input type="button" id="AddProduct" value="상품등록"></div>
+					<div class="util"><input type="button" class="btn" id="AddProduct" value="상품등록">&nbsp;<button type="button" class="btn" id="Delbutton">글삭제</button></div>
 
 <div align="center" class="div1">
    <table border="1" class="table" id="thetable">
@@ -284,6 +444,7 @@ $(document).ready(function() {
             <option value="bag">가방</option>
             <option value="dress">의류</option>
             <option value="earring">귀걸이/귀찌</option>
+            <option value="phon">폰케이스</option>
          </select>
          </div>
             </th>
@@ -293,7 +454,7 @@ $(document).ready(function() {
             <th style="width: 10%;">수정</th>
          </tr>
    <c:forEach var="datalist" items="${PickData}">
-      <tr>
+      <tr class="rows">
          <td><input type="checkbox" name="checkBtn"></td>
          <td><img src="${datalist.img }" style="width:150px;height:100px;"></td>
          <td style="display:none;">${datalist.type }</td>
@@ -301,11 +462,11 @@ $(document).ready(function() {
          <td>${datalist.price }</td>
          <td>${datalist.quantity }</td>
          <td><input type="text" class="quantityData" placeholder="재고수정"></td>
-         <td><input type="button" class="Modifybtn1" value="수정"/><input type="button" class="Deletebtn1" value="삭제"/></td>
+         <td><input type="button" class="Modifybtn1 btn" value="수정"/><input type="button" class="Deletebtn1 btn" value="삭제"/></td>
       </tr>
       </c:forEach>
    <c:forEach var="datalist" items="${datalist}">
-      <tr>
+      <tr class="rows">
          <td><input type="checkbox" name="checkBtn"></td>
          <td><img src="${datalist.img }" style="width:150px;height:100px;"></td>
          <td style="display:none;">${datalist.type }</td>
@@ -313,15 +474,52 @@ $(document).ready(function() {
          <td>${datalist.price }</td>
          <td>${datalist.quantity }</td>
          <td><input type="text" class="quantityData" placeholder="재고수정"></td>
-         <td><input type="button" class="Modifybtn1" value="수정"/><input type="button" class="Deletebtn1" value="삭제"/></td>
+         <td><input type="button" class="Modifybtn1 btn" value="수정"/><input type="button" class="Deletebtn1 btn" value="삭제"/></td>
       </tr>
       </c:forEach>
-      <tr>
+      <tr class="rows">
          <td colspan="5" style="text-align: center;">
-            <button type="button" id="Delbutton">글삭제</button>
+            <button type="button" class="btn" id="Delbutton">글삭제</button>
          </td>
       </tr>
    </table>
+   <!-- 검색 form -->
+      <div id="acsearch" class="div2">
+         <!-- search{s} -->
+         <div style="padding-bottom: 20px; display: flex; flex: row; margin: 0 auto; width: 280px;">
+            <div class="w100" style="padding-right: 10px">
+               <select class="form-control form-control-sm" name="searchType"
+                  id="searchType">
+                  <option value="product">제목</option>
+               </select>
+            </div>
+            <div class="w300" style="padding-right: 10px">
+               <input type="text" class="form-control form-control-sm"
+                  name="keyword" id="keyword">
+            </div>
+            <div>
+               <div>
+            <img style="vertical-align: middle; margin:0; padding:0; width: 30px; height: 28px; cursor: pointer;" src="resources/img/scarchhhh.png" name="btnSearch" id="btnSearch" onclick="title_search()">
+         </div>
+            </div>
+         </div>
+         <!-- search{e} -->
+      </div>
+	<div align="center">
+       <div style="display: flex; flex-flow:low; margin-bottom: 50px; justify-content: center;align-items: center;" align="center">
+          <div id="num_1" style="display: flex; flex-flow:low; width: 100px; "></div>
+          <div id="num_2" style="display: flex; flex-flow:low;"></div>
+          <div id="num_3" style="display: flex; flex-flow:low; width: 100px;"></div>
+        </div>
+    </div>
+   <form action="quantity_search" name="list_form" method="post">
+         <input type="hidden" name="search_result" id="search_result">
+         <input type="hidden" name="type_result" id="type_result">
+         <input type='hidden' name='start_result' id='start_result' value="1">
+       <input type='hidden' name='end_result' id='end_result' value="10">
+   </form>
+      <input type="hidden" value="${list_search_result}" id="search_result_init">
+      <input type="hidden" value="${list_type_result}" id="type_result_init">
 </div>
 
 
@@ -357,5 +555,6 @@ $(document).ready(function() {
 	<input type="hidden" id="adminHeader_form_start" name="start" value="1">
 	<input type="hidden" id="adminHeader_form_end" name="end" value="10">
 	</form>
+	
 </body>
 </html>

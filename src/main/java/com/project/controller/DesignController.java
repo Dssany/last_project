@@ -58,17 +58,12 @@ public class DesignController {
    public String myimg(Model model,HttpServletRequest request) {
       HttpSession session = request.getSession();
       ArrayList<String> arr1 = new ArrayList<String>();
-      if(session.getAttribute("id")==null) {
-          model.addAttribute("logstart","로그인 해주세요");
-          return "login&join/login";
-       }else {
           List<MyimgDTO> z=myimgservice.select(session.getAttribute("id").toString());
          for(int i=0;i<z.size();i++) {
             arr1.add(z.get(i).getImg());
          }
          model.addAttribute("myimg_imglist",arr1);
          return "design/myimg";
-       }
    }
 
    @RequestMapping("tip")
@@ -92,13 +87,8 @@ public class DesignController {
    @ResponseBody
    public String myimg_delete(Model model,HttpServletRequest request, @RequestParam String img) {
       HttpSession session = request.getSession();
-      if(request.getSession().getAttribute("id")==null) {
-          model.addAttribute("logstart","로그인 해주세요");
-          return "login&join/login";
-       }else {
-          myimgservice.myimg_delete(session.getAttribute("id").toString(), img);
-         return "내 이미지 삭제 완료";
-       }
+      myimgservice.myimg_delete(session.getAttribute("id").toString(), img);
+      return "내 이미지 삭제 완료";
    }
    @RequestMapping(value = "change", method = {RequestMethod.GET, RequestMethod.POST})
    public String change(Model model, @RequestParam String change_val,@RequestParam String start,@RequestParam String end) {

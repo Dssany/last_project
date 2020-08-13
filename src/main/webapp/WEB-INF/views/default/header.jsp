@@ -210,10 +210,6 @@
       location.href = 'cart';
    }
 </script>
-
-
-
-
 </head>
 
 <body class="demo-adsila">
@@ -221,7 +217,7 @@
       <div>
          <h1>
             <a href="index" style="color: black;">
-            <img class="img0" src="resources/img/MAKE1.PNG" style="width:200px; height: 69PX; color:#F6F6F6;">
+            <img src="resources/img/MAKE1.PNG" style="width:200px; height: 69PX; color:#F6F6F6;">
             </a>
          </h1>
       </div>
@@ -231,7 +227,7 @@
                <span class="menu__item"><a class="menu__item-name" href="#"
                   style="color: black; font-size: 20px; font-family: Yu Gothic; font-weight: lighter; margin-right: 15px;">SHOP</a></span>
                <div class="dropdown-content">
-                  <span class="menu__item"><a class="menu__item-name" href="#" style="color: black;" onclick="data_move('')">ALL</a></span>
+                  <span class="menu__item"><a class="menu__item-name" href="#" style="color: black;" onclick="data_move('all')">ALL</a></span>
                   <span class="menu__item"><a class="menu__item-name" href="#" style="color: black;" onclick="data_move('earring')">EARRING</a></span>
                   <span class="menu__item"><a class="menu__item-name" href="#" style="color: black;" onclick="data_move('dress')">DRESS</a></span>
                   <span class="menu__item"><a class="menu__item-name" href="#" style="color: black;" onclick="data_move('bag')">BAG</a></span>
@@ -279,7 +275,7 @@
                      <div class="dropdown-content2">
                         <span class="menu__item"><a class="menu__item-name" href="myinfo" style="color: black;">MY INFO</a></span>
                         <span class="menu__item"><a class="menu__item-name" href="orderList" style="color: black;">ORDERLIST</a></span>
-                        <span class="menu__item"><a class="menu__item-name" id="logoutId" href="logout" style="color: black;">LOGOUT</a></span>
+                        <span class="menu__item"><a class="menu__item-name" href="logout" style="color: black;">LOGOUT</a></span>
                         <c:if test="${sessionScope.id.split('_')[0] eq '/admin/' }">
                            <span class="menu__item"><a class="menu__item-name" href="adminindex" style="color: black;">ADMIN</a></span>
                         </c:if>

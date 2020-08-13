@@ -17,7 +17,7 @@
     <!-- Menu CSS -->
     <link href="resources/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <!-- toast CSS -->
-<!--     <link href="resources/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet"> -->
+    <link href="resources/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
     <!-- morris CSS -->
     <link href="resources/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
     <!-- chartist CSS -->
@@ -33,134 +33,223 @@
 <script src="resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 <script src="resources/jquery.form.min.js"></script>
 <script type="text/javascript">
-   var comment_count=0;
-   size = ${comment_view.size()};
-   writer_view = ${writer_view};
-   comment_view = ${comment_view};
-   regDate_view = ${regDate_view};
-   rno=${rno_view};
-   bno_view=${bno_view};
-   $(function() {
-      for(i=0;i<size;i++){
-         $("#comment_list").append("<div id='canc"+comment_count+"' style='margin-top:20px; width:60%; '> 작성자 &nbsp; : &nbsp;<label id='comment_writer"+comment_count+"'>"+writer_view[i]+"</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 작성시간 &nbsp;:&nbsp;"+regDate_view[i]+""
-               +"<br><textarea id='commare"+comment_count+"' cols='1' style='width:420px;height:100px; margin-top:10px; resize: none;' name='comment_contents'> "+comment_view[i]+"</textarea> </div>");
-         $("#comment_list").append("<input id='btn_del"+comment_count+"' type='button' value='댓글 삭제' onclick='reply_del("+comment_count+")'>");
-         $("#comment_list").append("<input id='btn_change"+comment_count+"' type='button' value='댓글 수정' onclick='reply_ch("+comment_count+")'>");
-         $("#comment_list").append("<input id='btn_change_cel"+comment_count+"' style='display: none' type='button' value='댓글 수정 취소' onclick='reply_ch_cel("+comment_count+")'>");
-         $("#comment_list").append("<input type='hidden' id='bno_out"+comment_count+"' value='"+bno_view+"'>")
-         $("#comment_list").append("<input type='hidden' id='rno_out"+comment_count+"' value='"+rno[i]+"'>");
-         $("#commare"+comment_count).attr('disabled', true);
-         comment_count++;
-      }
-   })
-   function comment() {
-      if($("#comment_btn").val()=='댓글'){
-         $("#commare"+comment_count).attr('disabled', false);
-         $("#comment_btn").val("등록");
-         $("#comment_list").append("<div id='canc"+comment_count+"' style='margin-top:20px; width:60%; '> 작성자 &nbsp; : &nbsp;<label id='comment_writer"+comment_count+"'>${id}</label>"
-               +"<br><textarea id='commare"+comment_count+"' cols='1' style='width:420px;height:100px; margin-top:10px; resize: none;' name='comment_contents'> </textarea> </div>");
-         $("#comment_list").append("<input id='btn_del"+comment_count+"' type='button' value='댓글 삭제' onclick='reply_del("+comment_count+")'>");
-         $("#comment_list").append("<input id='btn_change"+comment_count+"' type='button' value='댓글 수정' onclick='reply_ch("+comment_count+")'>");
-         $("#comment_list").append("<input id='btn_change_cel"+comment_count+"' style='display: none' type='button' value='댓글 수정 취소' onclick='reply_ch_cel("+comment_count+")'>");
-         $("#comment_list").append("<input type='hidden' id='bno_out"+comment_count+"' value='"+bno_view+"'>");
-         
-         $("#comment_cancel").css("display","");
-         for(i=0;i<comment_count+1;i++){
-            $("#btn_change"+i).attr('disabled', "disabled");
-            $("#btn_del"+i).attr('disabled', "disabled");
-         }
-      }else{
-         $("#commare"+comment_count).attr('disabled', true);
-         $("#comment_btn").val("댓글");
-         $("#comment_cancel").css("display","none");
-         
-         
-         
-        bi=$("#bno_out"+comment_count).val();
-        ci=$("#commare"+comment_count).val();
-        wi=$("#comment_writer"+comment_count).text();
-        alert(bi);
-        alert(ci);
-        alert(wi);
-         
-      $.ajax({
-            url : "reply",
-            type : "post",
-            data : {bno:bi,comnet:ci,writer:wi},
-            success : function(result) {
-                  r=result;
-                  $("#comment_list").append("<input type='hidden' id='rno_out"+comment_count+"' value='"+result+"'>");
-            for(i=0;i<comment_count+1;i++){
-               $("#btn_change"+i).removeAttr('disabled');
-               $("#btn_del"+i).removeAttr('disabled');
-            }
-            },
-            error : function() {
-               alert('댓글 입력 실패')
-         }
-      })
-      comment_count++;
-      }
-   }
-     function comment_cel() {
-       $("#commare"+comment_count).attr('disabled', false);
-       $("div").remove("#canc"+comment_count);
-       $("input").remove("#btn_del"+comment_count);
-         $("input").remove("#btn_change"+comment_count);
-         $("input").remove("#bno_out"+comment_count);
-         $("input").remove("#rno_out"+comment_count);
-       $("#comment_btn").val("댓글");
-       $("#comment_cancel").css("display","none");
-      }
-   
-      function reply_del(d) {
-            b='${bno_view}';
-            $.ajax({
-               url : "replydel",
-               type : "post",
-               data : {bno:b,rno:$("#rno_out"+d).val()},
-               success : function() {
-                  $("input").remove("#btn_del"+d);
-                  $("input").remove("#btn_change"+d);
-                  $("input").remove("#bno_out"+d);
-                  $("input").remove("#rno_out"+d);
-                  $("div").remove("#canc"+d);
-               },
-               error : function() {
-                  alert('댓글 삭제 실패')
-            }
-         });
-   }
-   function reply_ch(d) {
-      $("#text").val($("#commare"+d).val());
-      b='${bno_view}';
-      if($("#btn_change"+d).val()=="댓글 수정"){
-         $("#btn_change"+d).val("댓글 수정 완료");
-         $("#commare"+d).removeAttr('disabled');
-         $("#btn_change_cel"+d).css('display','block');
-      }else{
-         $.ajax({
-               url : "replych",
-               type : "post",
-               data : {bno:b,rno:$("#rno_out"+d).val(),content:$("#commare"+d).val()},
-               success : function() {
-                  $("#btn_change"+d).val("댓글 수정");
-                 $("#commare"+d).attr('disabled','disabled');
-                 $("#btn_change_cel"+d).css('display','none');
-               },
-               error : function() {
-                  alert('댓글 수정 실패')
-            }
-         });
-      }
-   }
-   function reply_ch_cel(d) {
-      $("#commare"+d).val($("#text").val());
-      $("#btn_change"+d).val("댓글 수정");
-      $("#commare"+d).attr('disabled','disabled');
-      $("#btn_change_cel"+d).css('display','none');
-   }
+$(document).ready(function() {
+	var bno = ${view.bno}; 
+	console.log(bno)
+	var sessionId = '${sessionScope.id}'
+
+		$("#insertBtn").click(function(){
+			console.log("a");
+			var insertData = $("#replyForm").serialize(); //commentInsertForm의 내용을 가져옴
+		    commentInsert(insertData); //Insert 함수호출(아래)
+		})
+		
+
+	
+});
+
 </script>
+<script type="text/javascript">
+	var bno = ${view.bno}; 
+	
+	var ch=0;
+	
+	
+	
+	function commentList(){
+		
+	    $.ajax({
+	        url : 'commentlist',
+	        type : 'get',
+	        data : {'bno':bno},
+	        success : function(data){
+	            var a ='';
+	            $.each(data, function(key, value){ 
+	            	var recontent = value.content.replace(/<br>/gi,"\r\n");
+	            	console.log("리컨텐츠 : "+recontent)
+	            	console.log(value.rno)
+	            	if(value.rno==0){
+	            		
+	                a += '<div class="replyWrap2">';
+	                a += '<div class="replyTitleRe">'+'<img class="imgclass" src="http://img.echosting.cafe24.com/skin/admin_ko_KR/board/ico_comment.gif"><b>&nbsp'+value.writer.substring(0,2)+'****</b>&nbsp<b class="date">'+value.regDate.substring(0,10)+'</b>';
+	                console.log("작성자체크합니다 :"+value.writer)
+	                a += '<div class="alink"><a class="btn" onclick="commentUpdate('+value.p_rno+','+value.brno+',\''+value.writer+'\',\''+recontent+'\');"> 수정 </a>';
+	                a += '<a class="btn" onclick="commentDelete('+value.p_rno+','+value.brno+',\''+value.writer+'\');"> 삭제 </a>';
+	                a += '</div></div>';
+	                a += '<div class="commentContent'+value.rno+'"> <textarea class="textclass" readonly cols="1" id="content'+value.p_rno+'_'+value.brno+'" name="content_'+value.rno+'">'+recontent+'</textarea>';
+	                a += '<span class="input-group-btn'+value.p_rno+'-'+value.brno+'" style="display:none;"><button type="button" class="btn" onclick="commentUpdateProc('+value.p_rno+','+value.brno+');">수정 완료</button> </span>';
+	                a += '<input type="hidden" value="'+value.brno+'">';
+	                a += '</div></div>';
+	                	
+	            	}else{
+	            		if(ch!=0)
+	            			a += '</div>'
+	            		a += '<div id="replyWrap'+value.p_rno+'">'
+	            		a += '<div class="replyWrap" style="border-top:1px solid darkgray;">';
+		                a += '<div class="replyTitle">'+'<b>'+value.writer.substring(0,2)+"****</b>&nbsp<b class='date'>"+value.regDate.substring(0,10)+'</b>';
+		                console.log("작성자체크합니다 :"+value.writer)
+		                a += '<div class="alink"><a class="btn" onclick="commentUpdate('+value.p_rno+','+value.brno+',\''+value.writer+'\',\''+value.content+'\');">수정</a>';
+		                a += '<a class="btn" onclick="commentDelete('+value.p_rno+','+value.brno+',\''+value.writer+'\');">삭제</a>';
+		                a += '<a value="false" class="commentAddlink'+value.p_rno+' btn" onclick="commentAdd('+value.p_rno+');disableLink(this);">답글</a> </div></div>';
+		                a += '<div class="commentContent'+value.rno+'"> <textarea class="textclass" readonly cols="1" id="content'+value.p_rno+'_'+value.brno+'" name="content_'+value.rno+'">'+recontent+'</textarea>';
+		                a += '<span class="input-group-btn'+value.p_rno+'-'+value.brno+'" style="display:none;"><button type="button" class="btn" onclick="commentUpdateProc('+value.p_rno+','+value.brno+');">수정 완료</button> </span>';
+		                a += '<input type="hidden" value="'+value.brno+'">';
+		                a += '</div></div>';
+		                
+		                
+	            	}
+	            	ch ++;
+	            });
+	            a += '</div>'
+	            $(".commentList").html(a);
+	        }
+	        
+	    });
+	}
+
+	function disableLink(e){
+		$(e).attr("value","true")
+		$(e).css("pointer-events","none");
+	};
+	
+	
+	
+	
+	//답글 텍스트생성 메소드
+	function commentAdd(p_rno){
+// 		$("#commentAddlink").attr("value","true");
+			 var a ='';
+			 a +='<form id="commentAdd'+p_rno+'">';
+		    a += '<div class="input-group">';
+		    a += '<textarea cols="1" id="content" value="true" name="content_Add'+p_rno+'"></textarea>';
+		    a += '<button type="button" class="btn" onclick="commentAddInsert('+p_rno+');">등록완료</button>';
+		    a += '</div>';
+		    a += '</form>';
+		    
+		    $('#replyWrap'+p_rno).append(a);
+	}
+	
+	//답글 DB등록
+	function commentAddInsert(rno){
+		var content_Add = $('[name=content_Add'+rno+']').val();
+		var sessionId = '${sessionScope.id}'	
+		$.ajax({
+	        url : 'replyAddInsert',
+	        type : 'post',
+	        data : {'content':content_Add,'rno':rno,'bno':bno,'writer':sessionId},
+	        success : function(data){
+	        	$(".commentAddlink").attr("value","false");
+	                commentList(); //댓글 작성 후 댓글 목록 reload
+	                $('[name=content_Add'+rno+']').val('');
+	            
+	        },error:function(){
+				alert("에러")	        	
+	        }
+	    });
+	
+	}
+	
+	
+	
+	//댓글 insert 메소드
+	function commentInsert(insertData){
+	    $.ajax({
+	        url : 'reply',
+	        type : 'post',
+	        data : insertData,
+	        success : function(data){
+	            if(data == 1) {
+	                commentList(); //댓글 작성 후 댓글 목록 reload
+	                $('[name=content]').val('');
+	            }
+	        }
+	    });
+	}
+	
+	//readonly푸는 메소드
+	function commentUpdate(rno,brno,writer,content){
+		var sessionId = '${sessionScope.id}'
+		console.log(writer)
+		if(sessionId.split("_")[0]!=writer){
+			alert("해당 작성자만 댓글 삭제 가능합니다.\n"+"로그인한아이디 : "+ sessionId +"\n댓글작성자 : " + writer);
+		}else{
+// 		     var a ='';
+// 		      console.log(content)
+// 		      var recontent = content.replace(/<br>/gi,"\r\n")
+// 		     	console.log(recontent)
+// 		     	a += '<div class="input-group">';
+// 		    	a += '<textarea cols="1" id="content" name="content_'+rno+'">'+recontent+'</textarea>';
+// 		    	a += '<span class="input-group-btn"><button type="button" onclick="commentUpdateProc('+rno+','+brno+');">수정</button> </span>';
+// 		    	a += '</div>';
+// 		    	$('#replyWrap'+rno).html(a);
+				$("#content"+rno+'_'+brno).attr("value",'true');
+				$("#content"+rno+'_'+brno).removeAttr("readonly")
+				$(".input-group-btn"+rno+'-'+brno).css("display","block");
+		    		}
+		          
+	}
+	 
+	//댓글 수정DB
+	function commentUpdateProc(rno,brno){
+	    var updateContent = $("#content"+rno+"_"+brno).val();
+	    var count = updateContent.length;
+	    if(count > 200)
+	    
+	    
+	    console.log(updateContent)
+	    console.log(rno)
+	    console.log(brno)
+	    if(brno!=0)
+		re={'rno' : rno,'brno':brno,'content':updateContent}
+		else
+		re={'rno' : rno,'content':updateContent}
+	    $.ajax({
+	        url : 'replyupdate',
+	        type : 'post',
+	        data : re,
+	        success : function(data){
+	        	$("#content"+rno+'_'+brno).attr("value",'false');
+	            if(data == 1) commentList(); //댓글 수정후 목록 출력 
+	        }
+	    });
+	}
+
+	function commentDelete(rno,brno,writer){
+		var sessionId = '${sessionScope.id}'
+		if(brno!=0)
+		re={'rno' : rno,'brno':brno}
+		else
+		re={'rno' : rno}
+		if(sessionId!=writer){
+			alert("해당 작성자만 댓글 삭제 가능합니다.\n"+"로그인한아이디 : "+ sessionId +"\n댓글작성자 : " + writer);
+		}else{
+			var delconfirm = confirm("해당 댓글을 정말 삭제하시겠습니까?");
+			if(delconfirm){
+			$.ajax({
+			        url : 'replydel',
+			        type : 'post',
+			        data : re,
+			        success : function(data){
+			        	alert("댓글이 삭제되었습니다.")
+			            commentList(); //댓글 수정후 목록 출력 
+			        }
+			    });
+			}else{
+				alert("댓글삭제취소");
+			}
+		}
+		
+	}
+        
+	function ad(d) {
+	      $("form[name=adminHeader_form]").attr("action",d);
+	      adminHeader_form.submit();
+	   }
+
+
+</script>
+
+
 <style type="text/css">
 .table {
       border-collapse: collapse;
@@ -185,15 +274,150 @@
       text-align: center;
     }
     .table caption{caption-side: bottom; display: none;}
-  
+  .btn{
+font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Apple SD Gothic Neo",sans-serif;
+    color: #7d7d7d;
+    font-size: 12px;
+    height: 27px;
+    line-height: 27px;
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+    text-align: left;
+    padding: 0px 8px 0 9px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    margin: 0;
+    display: inline-block;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+   
+}
+.btn:hover{
+background: #7d7d7d;
+	color:white;
+	transition: all 0.12s ease-in-out;
+}
+
+.util{
+padding-bottom: 10px;}
+textarea {
+	width:100%;
+	height:70px;
+	margin-top:10px;
+	overflow:hidden !important ;
+	border:0;
+	padding-left: 30px;
+	padding-top: 10px;
+	resize: none; 
+
+	}
+
+.replyWrap{
+	width:100%;
+	margin-top: 10px;
+	align: center;
+}
+.replyWrap2{
+	width:95%;
+	margin-left:30px;
+	border:1px solid #e9e9e9;
+	margin-top: 10px;
+}
+
+.replyTitle{
+/* border-top: 1px solid #e9e9e9; */
+	overflow: hidden;
+    padding: 12px 0 10px 20px;
+/*     border-bottom: 1px solid #e9e9e9; */
+    text-align: left;
+    background-color: #efefef;
+	
+}
+
+
+.replyTitleRe{
+
+/* 	border-top: 1px solid #e9e9e9; */
+	overflow: hidden;
+    padding: 12px 0 10px 20px;
+/*     border-bottom: 1px solid #e9e9e9; */
+    text-align: left;
+    background-color: white;
+   
+
+
+}
+
+.replyContent{
+	text-align: left;
+    clear: both;
+    padding: 20px 0 20px 25px;
+    word-break: break-all;
+     border:10px solid;
+/*     border-bottom: 1px solid #e9e9e9; */
+}
+.textareazone{
+width:100%;
+	border-color: #efefef;
+    background-color: #efefef;
+}
+
+ .textareazone textarea{ 
+ overflow: hidden;
+ width:700px; 
+     background-color: #efefef;
+     
+ } 
+
+.replyWrap input[value="1"]{
+	margin-left: 40px;
+}
+
+
+ .date{ 
+ font: 12px Poppins,Lato,arial,Nanum Gothic,AppleGothic,sans-serif;
+    font-weight: normal;
+ } 
+
+.alink{
+	float: right; 
+ 	padding-right: 10px; 
+    top: 7px;
+    right: 20px;
+}
+
+
+textarea[value="false"]{
+overflow:auto;
+background-color: white;
+
+}
+textarea[value="true"]{
+border:1px solid #000;
+
+}
+.input-group{
+width:100%;
+
+}
+ul{
+	list-style: none;
+}
 </style>
 </head>
-<body class="fix-header">
+<body onload="commentList()">
 <c:if test="${sessionScope.id.split('_')[0] ne '/admin/' }">
 <script type="text/javascript">
    alert("관리자만 접근가능합니다")
    location.href="index"
 </script>
+
+
 </c:if>
     <!-- ============================================================== -->
     <!-- Preloader -->
@@ -242,23 +466,23 @@
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 70px 0 0;">
+                     <li style="padding: 70px 0 0;">
                         <a href="adminindex" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>관리자 메인</a>
                     </li>
                     <li>
-                        <a href="acsearch" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
+                        <a href="javascript:ad('acsearch');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
                     </li>
                     <li>
-                        <a href="acboard" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
+                        <a href="javascript:ad('acboard');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
                     </li>
                     <li>
-                        <a href="acnotice" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
+                        <a href="javascript:ad('acnotice');" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
                     </li>
                     <li>
-                        <a href="QuantityManage" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
+                        <a href="javascript:ad('QuantityManage');" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
                     </li>
                     <li>
-                        <a href="accart" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>구매내역 관리</a>
+                        <a href="javascript:ad('accart');" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>구매내역 관리</a>
                     </li>
                     <li>
                         <a href="index" class="waves-effect"><i class="fa fa-columns fa-fw" aria-hidden="true"></i>메인으로 나가기</a>
@@ -286,9 +510,14 @@
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="white-box">
                             <h3 class="box-title">Q & A VIEW</h3>
+                            <div class="util">
+                            <a href="acboard" id="list" class="btn">목록</a>
+    <input type="button" class="btn" value="수정" onclick="location.href='update?bno=${view.bno}'">
+    <a href="delete?bno=${view.bno}" class="btn">삭제</a>
+                            </div>
 <!-- 여기서 부터 내용 -->
 <div>
-					<form method="post" action="update?bno=${view.bno}">
+					
 <input type="hidden" value="${view.bno}" name="bno">
    <table class="table">
         
@@ -326,20 +555,50 @@
     
     
     <!-- 목록/수정/삭제 -->
-   <div>
-    <a href="acboard" id="list" class="btn">목록으로</a>
-    <input type="submit" value="수정하기" style="border: 0px; background-color: transparent;" >
-    <a href="delete?bno=${view.bno}" class="btn">삭제하기</a>
-    </div>
-    <input type="button" value="댓글" onclick="comment()" id="comment_btn">
-    <input type="button" value="취소" onclick="comment_cel()" id="comment_cancel" style="display: none; margin-left: 10px;">
+ 
+   
     
-    <div id="comment_list">
-    </div>
-
-    </form>
+    
     
  </div>
+ 
+  <div class="replyWrap" id="replyWrap">
+	    <ul>
+	    	<li>
+	    		<div class="commentList">
+	    			
+	    		
+	    		<!-- 여기에 댓글 목록들어간다 -->
+	    		</div>
+			</li>
+			<li>
+				<div class="AddReply">
+					<!-- 추가되는 댓글 들어갈공간 -->
+				</div>
+			</li>
+			
+			<li>
+				<div class="replyContentWrap">
+					<div class="textareazone">
+						<form id="replyForm">
+						<div class="input-group">
+			               <input type="hidden" name="bno" value="${view.bno}">
+			               <input type="hidden" name="writer" value="${sessionScope.id }">
+			               
+			               <textarea cols="1" id="content" class="textclass" name="content" placeholder="내용을 입력하세요."></textarea>
+			               <span>
+			                    <input type="button" id="insertBtn" class="btn" value="등록"/>
+			               </span>
+			           </div>
+						
+						</form>
+					</div>
+					
+		
+				</div>
+			</li>
+		</ul>
+	</div>
 <input type="hidden" id="text">
 
 
@@ -371,7 +630,10 @@
     <script src="resources/adjs/dashboard1.js"></script>
     <script src="resources/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
 
-
+<form name="adminHeader_form" method="post">
+   <input type="hidden" id="adminHeader_form_start" name="start" value="1">
+   <input type="hidden" id="adminHeader_form_end" name="end" value="10">
+</form>
 </body>
 
 

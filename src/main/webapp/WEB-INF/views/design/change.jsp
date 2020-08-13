@@ -137,8 +137,8 @@
                 $("#tr"+c).append("<td>"
                 +"<img onmouseleave=style='width:312px;height:390px;margin-left:10px;' onmouseover=style='width:312px;height:390px;margin-left:10px;opacity:0.5;' style='width: 312px; height: 390px; margin-left: 10px;' src='"+l[i]+"' onclick='imgin("+a+")'>"
                     +"<p align='center' style='margin-top: 5px; font-family:궁서체;' id='imgname"+a+"'>"+r[i]+"</p> "
-                   +"<p align='center' style='margin-top: 5px; font-family:궁서체;' id='imgmoney"+a+"'>"+"가격 : &nbsp;"+u[i]+"</p>"
-                   +"<p align='center' style='margin-top: 5px; color:gray;' >"+"리뷰 : &nbsp;"+z[i]+"</p>"
+                   +"가격 : &nbsp;<p align='center' style='margin-top: 5px; font-family:궁서체;' id='imgmoney"+a+"'>"+u[i]+"</p>"
+                   +"리뷰 : &nbsp;<p align='center' style='margin-top: 5px; color:gray;' >"+z[i]+"</p>"
                    +"</td>");
                 $("#tr"+c).append("<form action='design' name='fimg"+a+"' method='post'>"
                         +"<input type='hidden' value='"+r[i]+"' name='imgname'>"

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.dao.CommnuityDAO;
 import com.project.dao.DataListDAO;
@@ -59,8 +60,11 @@ public class AdminService {
    }
 
    public void save_write(AdminNoticeDTO dto) {
-	   String title = "<b style='color:black;'>[공지]" + dto.getTitle() + "</b>";
-	     dto.setTitle(title);
+	   if(dto.getWriter().equals("/admin/")){
+		   String title = "<b style='color:black;'>[공지]" + dto.getTitle() + "</b>";
+		     dto.setTitle(title);
+	   }
+	   
       dao.save_write(dto);
    }
 
@@ -77,8 +81,19 @@ public class AdminService {
       dao.save_Modify(dto);
    }
 
-   public void selectAllQuantity(Model model) {
-      List<DataListDTO> data = datadao.selectAll();
+   public void selectAllQuantity(Model model,String start,String end) {
+	   DataListDTO dto = new DataListDTO();
+	   dto.setStart(start);
+	   dto.setEnd(end);
+      List<DataListDTO> data = datadao.select_all_number(dto);
+      model.addAttribute("datalist", data);
+      model.addAttribute("list_size", datadao.selectall_count(dto));
+   }
+   public void selectQuantity(Model model,String start,String end) {
+	   DataListDTO dto = new DataListDTO();
+	   dto.setStart(start);
+	   dto.setEnd(end);
+      List<DataListDTO> data = datadao.select_number(dto);
       model.addAttribute("datalist", data);
    }
 
@@ -97,9 +112,21 @@ public class AdminService {
 
    }
 
-   public void choiceCategory(String choice, Model model) {
-      List<DataListDTO> data = datadao.selectPick(choice);
-      model.addAttribute("PickData", data);
+   public void choiceCategory(String choice, Model model,String start,String end) {
+	   DataListDTO dto = new DataListDTO();
+	   dto.setStart(start);
+	   dto.setEnd(end);
+	   dto.setType(choice);
+	   if(choice.equals("All")) {
+		   List<DataListDTO> data = datadao.select_all_number(dto);
+		   model.addAttribute("PickData", data);
+		   model.addAttribute("list_size", datadao.selectall_count(dto));
+	   }else {
+		   List<DataListDTO> data = datadao.select_number(dto);
+		   model.addAttribute("PickData", data);
+		   model.addAttribute("list_size", datadao.select_count(dto));
+	   }
+	   model.addAttribute("list_choice_result", choice);
    }
 
    public void AddProduct(DataListDTO dto) {
@@ -117,5 +144,15 @@ public class AdminService {
       model.addAttribute("list_last",end);
       model.addAttribute("list_size",paydao.selectAll_size());
    }
+
+	public void quantity_search(DataListDTO dto, Model model, String search_result) {
+		dto.setProduct(search_result);
+		List<DataListDTO> data = datadao.select_name_Pick(dto);
+		   model.addAttribute("PickData", data);
+		   if(data.size()==0)
+			   model.addAttribute("list_size", 0);
+		   else
+			   model.addAttribute("list_size", 1);
+	}
 
 }

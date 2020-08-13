@@ -38,6 +38,7 @@
     .table th {
       color: #168;
       background: #f0f6f9;
+      text-align: center;
     }
     .table th, .table td {
 /*       padding: 10px; */
@@ -52,6 +53,23 @@
     .table tr td:first-child{
       text-align: center;
     }
+    td:nth-child(2){
+    	
+    	text-align: center;
+    }
+     td:nth-child(3){
+		width:50%;    	
+    }
+ 
+    td:nth-child(4){
+    	text-align: center;
+    }
+      td:nth-child(5){
+    	text-align: center;
+    }
+    td:nth-child(6){
+    	text-align: center;
+    }
     .table caption{caption-side: top;text-align: center;}
   .form-group {
    width: 90%;
@@ -59,6 +77,39 @@
    display: flex;
    justify-content: center;
    align-items: center;
+}
+
+
+.btn{
+font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Apple SD Gothic Neo",sans-serif;
+    color: #7d7d7d;
+    font-size: 12px;
+    height: 27px;
+    line-height: 27px;
+    cursor: pointer;
+    outline: none;
+    align-items: right;
+ 
+    padding: 0px 8px 0 9px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    margin: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+   
+}
+.btn:hover{
+background: #7d7d7d;
+	color:white;
+	transition: all 0.12s ease-in-out;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -269,20 +320,20 @@ $(document).ready(function() {
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 70px 0 0;">
+                     <li style="padding: 70px 0 0;">
                         <a href="adminindex" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>관리자 메인</a>
                     </li>
                     <li>
-                        <a href="acsearch" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
+                        <a href="javascript:ad('acsearch');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
                     </li>
                     <li>
-                        <a href="acboard" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
+                        <a href="javascript:ad('acboard');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
                     </li>
                     <li>
-                        <a href="acnotice" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
+                        <a href="javascript:ad('acnotice');" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
                     </li>
                     <li>
-                        <a href="QuantityManage" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
+                        <a href="javascript:ad('QuantityManage');" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
                     </li>
                     <li>
                         <a href="javascript:ad('accart');" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>구매내역 관리</a>
@@ -312,7 +363,10 @@ $(document).ready(function() {
                 <div class="row">
                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                         <div class="white-box">
+                        	
                             <h3 class="box-title">Q & A MANAGE</h3>
+                         	<div > <button type="button" class="btn" id="Delbutton">글삭제</button>
+            <button type="button" class="btn" onclick="location.href='acboardIns'">글등록</button></div>
 <!-- 여기서 부터 내용 -->
 					<div align="center" class="div1">
    <table border="1" class="table">
@@ -338,12 +392,7 @@ $(document).ready(function() {
          <td>${adminList.viewcnt }</td>
       </tr>
       </c:forEach>
-      <tr>
-         <td colspan="5" style="text-align: center;">
-            <button type="button" id="Delbutton">글삭제</button>
-            <button type="button" onclick="location.href='acboardIns'">글등록</button>
-         </td>
-      </tr>
+     
    </table>
 
 

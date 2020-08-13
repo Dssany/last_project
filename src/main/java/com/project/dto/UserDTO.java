@@ -7,7 +7,22 @@ public class UserDTO {
 	private String addr1;
 	private String addr2;
 	private String addr3;
-
+	private String start;
+	   private String end;
+	   
+	   
+	public String getStart() {
+		return start;
+	}
+	public void setStart(String start) {
+		this.start = start;
+	}
+	public String getEnd() {
+		return end;
+	}
+	public void setEnd(String end) {
+		this.end = end;
+	}
 	public String getAddr1() {
 		return addr1;
 	}

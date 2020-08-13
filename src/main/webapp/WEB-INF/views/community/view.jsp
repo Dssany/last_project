@@ -110,6 +110,22 @@ width:84%;
 	
 	margin-top: 15px;
 }
+#list{
+text-align: left;
+padding-top:10px;
+padding-left: 220px;	
+padding-bottom: 40px;
+}
+#list a:hover{
+	background: #7d7d7d;
+	color:white;
+	transition: all 0.12s ease-in-out;
+}
+.btn:hover{
+background: #7d7d7d;
+	color:white;
+	transition: all 0.12s ease-in-out;
+}
 
 </style>
 <script src="resources/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -125,13 +141,8 @@ width:84%;
 $(document).ready(function() {
 	var bno = ${view.bno}; 
 	var sessionId = '${sessionScope.id}'
-	var writer = '${view.writer}'
-	console.log("작성자누구냐:"+writer)
-	if(sessionId != writer){
-		alert("작성자만 게시글을 볼수있습니다");
-		location.href="list";
-	}
 	
+
 	
 	
 	$("#insertBtn").click(function(){
@@ -190,11 +201,11 @@ $(document).ready(function() {
 	                a += '<div class="replyWrap2">';
 	                a += '<div class="replyTitleRe">'+'<img class="imgclass" src="http://img.echosting.cafe24.com/skin/admin_ko_KR/board/ico_comment.gif"><b>&nbsp'+value.writer.substring(0,2)+'****</b>&nbsp<b class="date">'+value.regDate.substring(0,10)+'</b>';
 	                console.log("작성자체크합니다 :"+value.writer)
-	                a += '<div class="alink"><a onclick="commentUpdate('+value.p_rno+','+value.brno+',\''+value.writer+'\',\''+recontent+'\');"> 수정 </a>';
-	                a += '<a onclick="commentDelete('+value.p_rno+','+value.brno+',\''+value.writer+'\');"> 삭제 </a> ';
+	                a += '<div class="alink"><a class="btn" onclick="commentUpdate('+value.p_rno+','+value.brno+',\''+value.writer+'\',\''+recontent+'\');"> 수정 </a>';
+	                a += '<a class="btn" onclick="commentDelete('+value.p_rno+','+value.brno+',\''+value.writer+'\');"> 삭제 </a>';
 	                a += '</div></div>';
 	                a += '<div class="commentContent'+value.rno+'"> <textarea class="textclass" readonly cols="1" id="content'+value.p_rno+'_'+value.brno+'" name="content_'+value.rno+'">'+recontent+'</textarea>';
-	                a += '<span class="input-group-btn'+value.p_rno+'-'+value.brno+'" style="display:none;"><button type="button" onclick="commentUpdateProc('+value.p_rno+','+value.brno+');">수정</button> </span>';
+	                a += '<span class="input-group-btn'+value.p_rno+'-'+value.brno+'" style="display:none;"><button type="button" class="btn" onclick="commentUpdateProc('+value.p_rno+','+value.brno+');">수정</button> </span>';
 	                a += '<input type="hidden" value="'+value.brno+'">';
 	                a += '</div></div>';
 	                	
@@ -205,9 +216,9 @@ $(document).ready(function() {
 	            		a += '<div class="replyWrap" style="border-top:1px solid darkgray;">';
 		                a += '<div class="replyTitle">'+'<b>'+value.writer.substring(0,2)+"****</b>&nbsp<b class='date'>"+value.regDate.substring(0,10)+'</b>';
 		                console.log("작성자체크합니다 :"+value.writer)
-		                a += '<div class="alink"><a onclick="commentUpdate('+value.p_rno+','+value.brno+',\''+value.writer+'\',\''+value.content+'\');"> 수정 </a>';
-		                a += '<a onclick="commentDelete('+value.p_rno+','+value.brno+',\''+value.writer+'\');"> 삭제 </a> ';
-		                a += '<a value="false" class="commentAddlink'+value.p_rno+'" onclick="commentAdd('+value.p_rno+');disableLink(this);"> 답글 </a> </div></div>';
+		                a += '<div class="alink"><a class="btn" onclick="commentUpdate('+value.p_rno+','+value.brno+',\''+value.writer+'\',\''+value.content+'\');">수정</a>';
+		                a += '<a class="btn" onclick="commentDelete('+value.p_rno+','+value.brno+',\''+value.writer+'\');">삭제</a>';
+		                a += '<a value="false" class="commentAddlink'+value.p_rno+' btn" onclick="commentAdd('+value.p_rno+');disableLink(this);">답글</a> </div></div>';
 		                a += '<div class="commentContent'+value.rno+'"> <textarea class="textclass" readonly cols="1" id="content'+value.p_rno+'_'+value.brno+'" name="content_'+value.rno+'">'+recontent+'</textarea>';
 		                a += '<span class="input-group-btn'+value.p_rno+'-'+value.brno+'" style="display:none;"><button type="button" onclick="commentUpdateProc('+value.p_rno+','+value.brno+');">수정 완료</button> </span>';
 		                a += '<input type="hidden" value="'+value.brno+'">';
@@ -287,7 +298,7 @@ $(document).ready(function() {
 	function commentUpdate(rno,brno,writer,content){
 		var sessionId = '${sessionScope.id}'
 		
-		if(sessionId!=writer){
+		if(sessionId.split[0]!=writer){
 			alert("해당 작성자만 댓글 삭제 가능합니다.\n"+"로그인한아이디 : "+ sessionId +"\n댓글작성자 : " + writer);
 		}else{
 // 		     var a ='';
@@ -390,7 +401,32 @@ a:active { text-decoration: none; color: #000; } <!-- active : 클릭했을 때 
     vertical-align: top;
 }
 
-
+.btn{
+font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Apple SD Gothic Neo",sans-serif;
+    color: #7d7d7d;
+    font-size: 12px;
+    height: 27px;
+    line-height: 27px;
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+    text-align: left;
+    padding: 0px 8px 0 9px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    margin: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+   
+}
 
 </style>
 </head>
@@ -423,8 +459,8 @@ a:active { text-decoration: none; color: #000; } <!-- active : 클릭했을 때 
                 <td>${view.regdate }</td>
             </tr>
             <tr style="height:300px;">
-                <th>내용</th>
-                <td colspan="3" style="height: 200px; width: 700px;">
+              
+                <td colspan="4" style="height: 200px; width: 700px;">
                 ${view.content}
                 </td>
             </tr>
@@ -432,8 +468,8 @@ a:active { text-decoration: none; color: #000; } <!-- active : 클릭했을 때 
     </table>
     
     <!-- 목록/수정/삭제 -->
-   <div>
-    <a href="list" id="list" class="btn">목록으로</a>
+   <div id="list">
+    <a href="list" class="btn">목록으로</a>
     <c:if test="${sessionScope.id == view.writer }">
    
     <input type="submit" value="수정하기" style="border: 0px;" >
@@ -467,7 +503,7 @@ a:active { text-decoration: none; color: #000; } <!-- active : 클릭했을 때 
 			               
 			               <textarea cols="1" id="content" class="textclass" name="content" placeholder="내용을 입력하세요."></textarea>
 			               <span>
-			                    <input type="button" id="insertBtn" value="등록"/>
+			                    <input type="button" id="insertBtn" class="btn" value="등록"/>
 			               </span>
 			           </div>
 						

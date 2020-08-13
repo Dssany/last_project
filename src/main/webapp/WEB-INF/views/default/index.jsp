@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -217,8 +218,8 @@ d.getElementsByTagName('html')[0].appendChild(img);
 
       <div style="margin-top: 200px;">
          <!--       메인부분 -->
-         <jsp:include page="Banner.jsp"/>
-
+<%--          <jsp:include page="Banner.jsp"/> --%>
+         <c:import url="/Banner/"/>
          <div
             style="background-color: #fafafa; border-top: 1px solid #d5dbe0; border-bottom: 1px solid #d5dbe0; text-align: center;">
             <div

@@ -60,7 +60,54 @@ padding-top: 40px;
     .table tr td:first-child{
       text-align: center;
     }
-  
+     td:nth-child(2){
+    	text-align: center;
+    }
+      td:nth-child(4){
+    	text-align: center;
+    }
+      td:nth-child(5){
+    	text-align: center;
+    }
+      td:nth-child(6){
+    	text-align: center;
+    }
+   .rows:hover {
+  background-color: #ececff !important;
+  cursor: auto;
+   background: url('../images/icons/pointer.gif') no-repeat ;
+  background-position: left center ;
+  background-size: 10px;
+}
+
+.btn{
+font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Apple SD Gothic Neo",sans-serif;
+    color: #7d7d7d;
+    font-size: 12px;
+    height: 27px;
+    line-height: 27px;
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+    text-align: left;
+    padding: 0px 8px 0 9px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    margin: 0;
+    display: inline-block;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+   
+}
+.btn:hover{
+background: #7d7d7d;
+	color:white;
+	transition: all 0.12s ease-in-out;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -267,20 +314,20 @@ function ad(d) {
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 70px 0 0;">
+                     <li style="padding: 70px 0 0;">
                         <a href="adminindex" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>관리자 메인</a>
                     </li>
                     <li>
-                        <a href="acsearch" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
+                        <a href="javascript:ad('acsearch');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
                     </li>
                     <li>
-                        <a href="acboard" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
+                        <a href="javascript:ad('acboard');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
                     </li>
                     <li>
-                        <a href="acnotice" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
+                        <a href="javascript:ad('acnotice');" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
                     </li>
                     <li>
-                        <a href="QuantityManage" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
+                        <a href="javascript:ad('QuantityManage');" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
                     </li>
                     <li>
                         <a href="javascript:ad('accart');" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>구매내역 관리</a>
@@ -323,7 +370,7 @@ function ad(d) {
             <th style="width: 10%;">조회수</th>
          </tr>
       <c:forEach var="adminList" items="${listAll}">
-      <tr>
+      <tr class="rows">
       <td><input type="checkbox" name="checkBtn"></td>
          <td>${adminList.bno }</td>
          <td>
@@ -336,8 +383,8 @@ function ad(d) {
       </c:forEach>
       <tr>
          <td colspan="6" style="text-align: center;">
-            <button type="button" id="Delbutton">삭제</button>
-            <button type="button" onclick ="location.href='InsNotice'">등록</button>
+            <button type="button" class="btn" id="Delbutton">삭제</button>
+            <button type="button" class="btn" onclick ="location.href='InsNotice'">등록</button>
          </td>
       </tr>
    </table>

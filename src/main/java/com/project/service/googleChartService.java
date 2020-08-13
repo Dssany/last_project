@@ -33,7 +33,7 @@ public class googleChartService {
                         if(list.get(i).toString().contains("earring")) { ch.setEarringPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getEarringPrice()); }
                         if(list.get(i).toString().contains("bag")) { ch.setBagPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getBagPrice()); }
                         if(list.get(i).toString().contains("dress")) { ch.setDressPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getDressPrice()); }
-                        if(list.get(i).toString().contains("phon")) { ch.setDressPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getDressPrice()); }
+                        if(list.get(i).toString().contains("phon")) { ch.setPhonPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getPhonPrice()); }
                          ch.setTotalPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getTotalPrice());
                      
 //                         System.out.println(j+"월" +ch.toString());
@@ -44,9 +44,9 @@ public class googleChartService {
                }else if(j >=10){
                   if(list.get(i).toString().contains("-"+j+"-")) {
                      if(list.get(i).toString().contains("earring")) { ch.setEarringPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getEarringPrice()); }
-                     if(list.get(i).toString().contains("bag")) { ch.setBagPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getEarringPrice()); }
-                     if(list.get(i).toString().contains("dress")) { ch.setDressPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getEarringPrice()); }
-                     if(list.get(i).toString().contains("phon")) { ch.setDressPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getEarringPrice()); }
+                     if(list.get(i).toString().contains("bag")) { ch.setBagPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getBagPrice()); }
+                     if(list.get(i).toString().contains("dress")) { ch.setDressPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getDressPrice()); }
+                     if(list.get(i).toString().contains("phon")) { ch.setPhonPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getPhonPrice()); }
                      ch.setTotalPrice(Integer.parseInt(list.get(i).getPrice())  + ch.getEarringPrice());
                      
                      
@@ -67,5 +67,4 @@ public class googleChartService {
 }
 
    //      model.addAttribute("Chartlist", dao.Chart(dto));
-
 

@@ -86,7 +86,9 @@
    function del(d) {
       console.log("#url" + d)
       z = $("#url" + d).prop('src');
-      location.href = "listdel?img=" + z;
+      z2 = $("#rno"+d).val();
+      alert(z2);
+      location.href = "listdel?rno=" + z2+"&img="+z;
       moneysum=0;
       result();
    }  
@@ -103,7 +105,7 @@
    z[4]=arr.get(i).getPrice();
    z[5]=String.valueOf(i); 
    z[6] = arr.get(i).getCount();
-   z[7] = arr.get(i).getType();
+   z[7] = arr.get(i).getRno();
 -->
    <%@include file="../default/header.jsp"%>
    <fmt:requestEncoding value="utf-8" />
@@ -119,7 +121,9 @@
             <th style="width: 100px; font-size: 20px;">기타</th>
          </tr>
          <c:forEach var="dto" items="${cartlist}">
+            <input type="hidden" id="rno${dto[5] }" value="${dto[7]}">
             <tr style="border-top: 1px solid #d5dbe0;">
+               
                <td style="height: 50px; width: 200px;" align="center"><img style="height: 100px; width: 100px;" src="${dto[0]}" id="url${dto[5]}"></td>
                <td style="height: 50px;"><label id="Pname${dto[5]}">${dto[2]}</label></td>
                <td style="height: 50px; width: 200px; text-align: center;">

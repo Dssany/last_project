@@ -31,6 +31,12 @@
     <link href="resources/adcss/colors/default.css" id="theme" rel="stylesheet">
 <title>Insert title here</title>
 <script type="text/javascript" src="resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+function ad(d) {
+      $("form[name=adminHeader_form]").attr("action",d);
+      adminHeader_form.submit();
+   }
+</script>
 <style type="text/css">
 .table {
       border-collapse: collapse;
@@ -114,20 +120,20 @@
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 70px 0 0;">
+                     <li style="padding: 70px 0 0;">
                         <a href="adminindex" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>관리자 메인</a>
                     </li>
                     <li>
-                        <a href="acsearch" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
+                        <a href="javascript:ad('acsearch');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
                     </li>
                     <li>
-                        <a href="acboard" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
+                        <a href="javascript:ad('acboard');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
                     </li>
                     <li>
-                        <a href="acnotice" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
+                        <a href="javascript:ad('acnotice');" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
                     </li>
                     <li>
-                        <a href="QuantityManage" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
+                        <a href="javascript:ad('QuantityManage');" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
                     </li>
                     <li>
                         <a href="javascript:ad('accart');" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>구매내역 관리</a>

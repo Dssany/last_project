@@ -13,5 +13,7 @@
 		<typeAlias alias="reviewdto" type="com.project.dto.ReviewDTO"/>
 		<typeAlias alias="datalistdto" type="com.project.dto.DataListDTO"/>
 		<typeAlias alias="Helpdto" type="com.project.dto.HelpDTO"/>
+		<typeAlias alias="Authdto" type="com.project.dto.AuthInfo"/>
+		<typeAlias alias="bannerdto" type="com.project.dto.bannerDTO"/>
    </typeAliases>
 </configuration>

@@ -201,7 +201,7 @@ html, body{
             <ul>
                <li><h1><a href="#">1588-1111</a></h1></li>
                <li>상담가능시간: 평일 10:00 ~ 19:00</li>
-               <li><a href="#">help@marpple.com</a></li>
+               <li><a href="#">help@make.com</a></li>
             </ul>
          </div>
          
@@ -223,7 +223,7 @@ html, body{
          </div>
          <div class="body">
             <div>
-               <span>(주)셀디 코퍼레이션</span> | <span>대표 이대산</span> | <span>사업자 등록번호 9999-9999</span> | <span>통신판매업 신고 2020-서울 종로-0721</span>
+               <span>(주)메이크 코퍼레이션</span> | <span>대표 xxx</span> | <span>사업자 등록번호 9999-9999</span> | <span>통신판매업 신고 2020-서울 종로-0721</span>
             </div>
             <div>
                <span>서울 구로구 디지털로 30길 28 마리오타워 605</span> | <span>고객센터 1566-9437</span> | <span>팩스 02-6486-9437</span>

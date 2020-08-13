@@ -139,12 +139,12 @@ public class UploadController {
 		
 		}
 		
-		if(!List.isEmpty()) {
-			System.out.println("if문시작");
+		if(type.equals("earring pitting")) {
+			System.out.println("다중 업로드 귀걸이꺼if문시작");
 			for(MultipartFile mf : List) {
 				String Filetype = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf(".")+1);
 				//String orginFileName = mf.getOriginalFilename();
-				String orgFileName = product + i + "."+"png";
+				String orgFileName = product +i+ "."+"png";
 				String retype=type.replace("pitting", "design");
 				String path = "C:\\Users\\KGITBank\\Desktop\\WorkSpace\\last_project\\src\\main\\webapp\\resources\\img\\" 
 						+ retype + "\\" + orgFileName;

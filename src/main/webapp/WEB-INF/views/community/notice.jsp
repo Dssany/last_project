@@ -7,8 +7,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+   <!--===============================================================================================-->   
+   <link rel="icon" type="image/png" href="resources/TableCSS/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+   <link rel="stylesheet" type="text/css" href="resources/TableCSS/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<!--    <link rel="stylesheet" type="text/css" href="resources/TableCSS/fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
+<!--===============================================================================================-->
+   <link rel="stylesheet" type="text/css" href="resources/TableCSS/vendor/animate/animate.css">
+<!--===============================================================================================-->
+   <link rel="stylesheet" type="text/css" href="resources/TableCSS/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+   <link rel="stylesheet" type="text/css" href="resources/TableCSS/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+   <link rel="stylesheet" type="text/css" href="resources/TableCSS/css/util.css">
+   <link rel="stylesheet" type="text/css" href="resources/TableCSS/css/main.css?aa">
+<!--===============================================================================================-->
+   
 <script type="text/javascript" src="resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+
 var size= ${list_size}
 var ssize;
 var zxc=1;
@@ -107,26 +125,14 @@ function title_search() {
 </script>
 <style type="text/css">
 
+body,html{
+font-family: 'Nanum Gothic',Arial,sans serif;
+}
 .div1 {
 padding-top: 100px;
-padding-bottom: 30px;
-font: 400 14px 'Poppins',sans-serif;
+font: 400 14px 'Nanum Gothic',Arial,sans serif;
 }
-  table {
-    width: 60%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
-  }
-  th, td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
-  }
- a { text-decoration:none;  color: #000; !important  } 
-a:link { color: #000; text-decoration: none; } <!-- link : 방문전 링크 상태 -->
-a:visited {
-   color: #000; text-decoration: none; } <!-- visited : 방문후 링크 상태 -->
-a:hover { color: #000; text-decoration: none; } <!-- hover : 마우스 오버했을 때 링크 상태 -->
-a:active { text-decoration: none; color: #000; } <!-- active : 클릭했을 때 링크 상태 -->
+
  fieldset {
     border: none;
     vertical-align: top;
@@ -143,36 +149,65 @@ a:active { text-decoration: none; color: #000; } <!-- active : 클릭했을 때 
 <body>
 
 <jsp:include page="../default/header.jsp"/>
-<%-- <%@include file="header.jsp"%> --%>
-<br>
 
-<div align="center" class="div1">
-   <table>
-      <caption><font style="font: 400 30px 'Poppins',sans-serif;">Notice<br></font></caption>
-         <tr>
-            <th style="width: 10%;">번호</th>
-            <th style="width: 50%;">제목</th>
-            <th style="width: 10%;">작성자</th>
-            <th style="width: 10%;">작성일</th>
-            <th style="width: 10%;">조회수</th>
-         </tr>
-      <c:forEach var="adminList" items="${listAll}">
-      <tr>
-         <td><img src="https://attrangs.co.kr/asset/img/board/icon_notice.png"></td>
-         <td>
-         <a class="title" href="noticeview?bno=${adminList.bno}">
-         ${adminList.title }</a></td>
-         <td>관리자</td>
-         <td style="font-size: 2px;">${adminList.regdate }</td>
-         <td>${adminList.viewcnt }</td>
-      </tr>
-      </c:forEach>
-   </table>
+ <div class="limiter">
+      <div class="container-table100">
+         <div class="wrap-table100">
+            <div class="table">
+                  <div align="center">
+                  <font style="font: 400 30px 'Poppins',sans-serif;">Notice</font>
+                  </div>
+               <table class="table">
+                     
+                     <tr class="header">
+                     <th class="cell">
+                        번호
+                     </th>
+                     <th class="cell">
+                        제목
+                     </th>
+                     <th class="cell">
+                        작성자
+                     </th>
+                     <th class="cell">
+                        작성일
+                     </th>
+                     <th class="cell">
+                        조회수
+                     </th>
+                  </tr>
+        
+                  <c:forEach var="adminList" items="${listAll}">
+                  <tr class="row">
+                     <c:choose>
+                           <c:when test="${adminList.writer=='/admin/'}">
+                              <td class="cell" data-title="번호"><img src="https://attrangs.co.kr/asset/img/board/icon_notice.png"></td>
+                           </c:when>
+                           <c:otherwise>
+                              <td class="cell" data-title="번호">${adminList.bno}</td>
+                           </c:otherwise>
+                        </c:choose>
+                     <td class="cell" data-title="제목">
+                        <a class="title" href="noticeview?bno=${adminList.bno}&maxSize=${listAll.size()}">${adminList.title }</a>
+                     </td>
+                     <td class="cell" data-title="작성자">
+                        관리자
+                     </td>
+                     <td class="cell" data-title="작성일">
+                        ${adminList.regdate }
+                     </td>
+                     <td class="cell" data-title="조회수">
+                        ${adminList.viewcnt }
+                     </td>
+                  </tr>
+                  </c:forEach>
+                  </table>
+            </div></div></div>
 
       <!-- 검색 form -->
       <div id="acsearch" class="div2">
          <!-- search{s} -->
-         <div class="form-group row justify-content-center"
+         <div class="form-group justify-content-center"
             style="padding-bottom: 20px;">
             <div class="w100" style="padding-right: 10px">
                <select class="form-control form-control-sm" name="searchType"
@@ -201,6 +236,8 @@ a:active { text-decoration: none; color: #000; } <!-- active : 클릭했을 때 
           <div id="num_3" style="display: flex; flex-flow:low; width: 100px;"></div>
         </div>
     </div>
+    
+    
        <form action="notice_search" name="list_form" method="post">
       <input type="hidden" name="search_result" id="search_result">
       <input type="hidden" name="type_result" id="type_result">
@@ -211,6 +248,20 @@ a:active { text-decoration: none; color: #000; } <!-- active : 클릭했을 때 
    <input type="hidden" value="${list_type_result}" id="type_result_init">
       
       <jsp:include page="../default/footer.jsp"/>
-<%-- <%@include file="footer.jsp"%> --%>
+      
+      
+      
+         
+   
+<!--===============================================================================================-->   
+   <script src="resources/TableCSS/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+   <script src="resources/TableCSS/vendor/bootstrap/js/popper.js"></script>
+   <script src="resources/TableCSS/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+   <script src="resources/TableCSS/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+   <script src="resources/TableCSS/js/main.js"></script>
+      
 </body>
 </html>

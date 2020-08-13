@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
   <meta charset="utf-8">
   <title>Swiper demo</title>
@@ -59,12 +59,16 @@
   <!-- Swiper -->
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="resources/img/banner1.jpg" style="width:100%;height:500px;"></div>
-      <div class="swiper-slide"><img src="resources/img/banner2.jpg" style="width:100%;height:500px;"></div>
-      <div class="swiper-slide"><img src="resources/img/banner3.jpg" style="width:100%;height:500px;"></div>
-      <div class="swiper-slide"><img src="resources/img/banner4.jpg" style="width:100%;height:500px;"></div>
-      <div class="swiper-slide"><img src="resources/img/banner5.jpg" style="width:100%;height:500px;"></div>
-      <div class="swiper-slide"><img src="resources/img/banner6.jpg" style="width:100%;height:500px;"></div>
+       <c:forEach var="bannerlist" items="${banner_list}">
+      <div class="swiper-slide">
+            <img src="${bannerlist.img }" style="width:100%;height:500px;">
+      </div>
+      </c:forEach>
+<!--       <div class="swiper-slide"><img src="resources/img/banner2.jpg" style="width:100%;height:500px;"></div> -->
+<!--       <div class="swiper-slide"><img src="resources/img/banner3.jpg" style="width:100%;height:500px;"></div> -->
+<!--       <div class="swiper-slide"><img src="resources/img/banner4.jpg" style="width:100%;height:500px;"></div> -->
+<!--       <div class="swiper-slide"><img src="resources/img/banner5.jpg" style="width:100%;height:500px;"></div> -->
+<!--       <div class="swiper-slide"><img src="resources/img/banner6.jpg" style="width:100%;height:500px;"></div> -->
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>

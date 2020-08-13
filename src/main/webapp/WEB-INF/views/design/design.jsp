@@ -1,4 +1,3 @@
-  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
    <%@page import="java.net.URLDecoder"%>
@@ -31,12 +30,17 @@
 
 <script type="text/javascript">
    function partShot() { //특정부분 스크린샷 
+      if('${sessionScope.id}'!=''){
       html2canvas(document.getElementById("zz")) //id container 부분만 스크린샷 
       .then(function (canvas) { //jpg 결과값
          drawImg(canvas.toDataURL('image/jpeg')); //이미지 저장
          saveAs(canvas.toDataURL(), 'file-name.jpg'); 
          alert("장바구니 담는중")
       })
+      }else{
+         alert("로그인 해주세요.")
+         location.href='login'
+      }
    } 
    function drawImg(imgData) { 
 //       console.log(imgData); //imgData의 결과값을 console 로그롤 보실 수 있습니다. 
@@ -78,6 +82,7 @@
          data : {userimg_in:data,imgname:n,imgmoney:m,type:ty},
          success : function(result) {
             alert(result)
+            location.href="cart"
          },
          error : function() {
             alert('장바구니 저장 실패')
@@ -112,12 +117,15 @@
       
 //     img[1].src="resources/img/right.png";
 //     img[2].src="resources/img/abc.jpg";
-
-
     
     // 이미지 업로드시 실행되는 함수
     function uploadBtn() {
+       if('${sessionScope.id}'!=''){
       $('#file').click();
+       }else{
+          alert("로그인 해주세요.")
+          location.href='login'
+       }
    }
 //    file창이 종료가 되면 실행
    function changeValue(obj){
@@ -142,9 +150,8 @@
 //          alert(e.target.result)
 //          alert(obj)
             id="myCanvas"+count
-            $('#in').append("<div id='image"+count+"' style='width: 50px; height: 50px; z-index:"+count+"' onclick='imgclick("+count+")'><canvas id='myCanvas"+count+"'style='width: 50px; height: 50px;'></canvas></div>")
+            $('#in').append("<div id='image"+count+"' style='z-index:"+count+";' onclick='imgclick("+count+")'><canvas id='myCanvas"+count+"'style='width: 50px; height: 50px;'></canvas></div>")
             $("#image"+count).draggable();
-            $("#image"+count).resizable();
                img[count] = new Image();
                 g=img[count];
                 img[count].addEventListener('load',function(){
@@ -162,47 +169,53 @@
    // 텍스트 추가
    function in_text() {
       alert("in_text")
-      id="myCanvas"+count;
-      $('#in').append("<div id='image"+count+"' style='width: 50px; height: 50px; z-index:"+count+"' ondblclick='test_dblclick("+count+")' onclick='imgclick("+count+")'><canvas id='myCanvas"+count+"'style='width: 350px; height: 100px;'></canvas></div>")
+      $('#in').append("<div id='image"+count+"' style=' z-index:"+count+"; position: relative; left: 63px; top: -4px;' ondblclick='test_dblclick("+count+")' onclick='imgclick("+count+")'><font style='font-size:30pt;' id='image_label"+count+"'>입력</font></div>")
+      $("#image"+count).css("width",$("#image_label"+count).css("width"));
       $("#image"+count).draggable();
-      ctx[count] = document.getElementById(id).getContext("2d");
-      ctx[count].font = '40px Arial';
-      ctx[count].fillText('입력', 0, 50);
       count++;
    }
    
 //    텍스트 더블 클릭시 실행
-    function test_dblclick() {
+    function test_dblclick(d) {
        alert("텍스트 더블클릭")
        $("div").remove("#text_dblclick_event");
-       $("#left_menu").append("<div id='text_dblclick_event' style='margin-top:30px'><input id='textin' type='text' placeholder='입력할 글자 입력' onchange='dblclick_end("+ch+")'></div>");
+       $("#left_menu").append("<div id='text_dblclick_event' style='width:192px; height:92px; margin-top:30px;'>"
+       +"<div style='display: flex; flex-flow:row; width: 20px; padding-left:74px;'>"
+       +"<input type='button' style='width:50px; height:20px; cursor: pointer;' onclick='text_dblclick_event_del()' value='X'>"
+       +"<input type='button' style='margin-left:5px; width:50px; height:20px; cursor: pointer;;' onclick='dblclick_end("+d+")' value='O'>"
+       +"</div>"
+       +"<div style='margin-top:10px;'><input id='textin' type='text' placeholder='입력할 글자 입력'></div>"
+       +"<div style='margin-top:10px;'><input id='sizein' type='text' placeholder='크기 입력(px)'></div></div>");
    }
+   function text_dblclick_event_del() {
+      $("div").remove("#text_dblclick_event");
+}
    function dblclick_end(d) {
+      alert($("#sizein").val())
       alert($("#textin").val())
-      $("div").remove("#image"+d);
-      new_id="myCanvas"+d;
-      $('#in').append("<div id='image"+d+"' style='width: 50px; height: 50px; z-index:"+d+"' ondblclick='test_dblclick("+d+")' onclick='imgclick("+d+")'><canvas id='myCanvas"+d+"'style='width: 350px; height: 100px;'></canvas></div>")
-      $("#image"+d).draggable();
-      ctx[count] = document.getElementById(new_id).getContext("2d");
-      ctx[count].font = '40px Arial';
-      ctx[count].fillText($("#textin").val(), 0, 50);
+      if($("#sizein").val()!="")
+      $("#image_label"+d).css("font-size",$("#sizein").val()+"pt");
+      if($("#textin").val()!="")
+      $("#image_label"+d).text($("#textin").val());
+      $("#image"+count).css("width",$("#image_label"+count).css("width"))
       $("div").remove("#text_dblclick_event");
    }
    
+   var imgclick_ch=0;
    // 이미지 클릭시 화면 투명도 절반으로 줄이는 함수
     function imgclick(d) {
+       imgclick_ch=1;
         ch=d;
         $("#myCanvas"+d).resizable({
             minWidth: 50,
             minHeight: 50,
+            autoHide:true,
         });
         
         for(i=1;i<count+1;i++){
            $("#image"+i).css("opacity", "1");
         }
-        $(function(){
-           $("#image"+d).css("opacity", "0.5");
-       });
+        $("#image"+d).css("opacity", "0.5");
       }
     
    // 디자인하는방법 클릭시 함수 실행
@@ -217,17 +230,22 @@
    
     // 내이미지 클릭시 함수 실행
     function mying() {
+       if('${sessionScope.id}'!=''){
         window.name = "parentForm";
         var popupX = (window.screen.width / 2) - (1300 / 2);
         var popupY= (window.screen.height /2) - (850 / 2);
         openWin = window.open("myimg",
                 "logindForm", 'status=no, height=750, width=800, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY + ", resizable = no, scrollbars = no");    
+       }else{
+          alert("로그인 해주세요")
+          location.href="login"
+       }
     }
    
    function d_fun() {
-//       alert($("#op").val()+" 사진 선택")
+      alert($("#op").val()+" 사진 선택")
       id="myCanvas"+count
-      $('#in').append("<div id='image"+count+"' style='width: 50px; height: 50px; z-index:"+count+"'><canvas id='myCanvas"+count+"'style='width: 50px; height: 50px;'></canvas></div>")
+      $('#in').append("<div id='image"+count+"' style='z-index:"+count+";'><canvas id='myCanvas"+count+"'style='width: 50px; height: 50px;'></canvas></div>")
       $("#image"+count).draggable();
       img[count] = new Image();
       g=img[count]
@@ -235,7 +253,7 @@
          ctx[count] = document.getElementById(id).getContext("2d");
          ctx[count].drawImage(g,0,0,300,150);
       },false);
-      img[count].src=$("#op").val();
+      img[count].src=$("#op_product").val();
       count++
    }
    
@@ -364,15 +382,17 @@
     }
 //     오른쪽 정렬
     function view_right() {
-       $("#image"+ch).css("left", "124px");
+       $("#image"+ch).css("width",$("#myCanvas"+ch).css("width"))
+          $("#image"+ch).css("left", parseInt(318)-parseInt($("#image"+ch).css("width").split("px")[0])+"px");
     }
 //     왼쪽,오른쪽 가운데
-   function view_left_right_center() {
-       $("#image"+ch).css("left", "62px");
-    }
+      function view_left_right_center() {
+         $("#image"+ch).css("width",$("#myCanvas"+ch).css("width"))
+          $("#image"+ch).css("left", parseInt(159)-parseInt($("#image"+ch).css("width").split("px")[0])/2+"px");
+   }
 //     위,아래 가운데
     function view_up_down_center() {
-       $("#image"+ch).css("top", "105px");
+       $("#image"+ch).css("top", parseInt(209)-parseInt($("#image"+ch).css("height").split("px")[0])/2+"px");
     }
 //     위쪽정렬
     function view_up() {
@@ -380,7 +400,7 @@
     }
 //     아래쪽정렬
     function view_down() {
-       $("#image"+ch).css("top", "210px");
+       $("#image"+ch).css("top", parseInt(418)-parseInt($("#image"+ch).css("height").split("px")[0])+"px");
     }
     
     
@@ -396,47 +416,56 @@
     function re_view() {
        design_review_form.submit();
    }
+    function imgclick_maindiv() {
+      if(imgclick_ch==1){
+         imgclick_ch=0;
+      }else{
+         for(i=1;i<count+1;i++){
+                 $("#image"+i).css("opacity", "1");
+              }
+      }
+   }
 </script>
 <body >
    
    <jsp:include page="../default/header.jsp"/>
-   <div style="width: 1500px; margin: 0 auto; margin-top: 100px;" onclick="imgclick('0')">
+   <div style="width: 1500px; margin: 0 auto; margin-top: 100px;" onclick="imgclick_maindiv()">
       <div style="display: flex; flex-flow:row; width: 700px; margin: 0 auto; " align="left">
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center;">
-            <img src="resources/img/reset.png" style="width: 50px;height: 50px;" onclick="view_reset()"><br><font style="font-size: 10px; text-align: center">처음으로</font>
+         <div style="text-align: center;cursor:pointer;" onclick="view_reset()">
+            <img src="resources/img/reset.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px; text-align: center;">처음으로</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/garbage.png" style="width: 50px;height: 50px;" onclick="view_garbage()"><br><font style="font-size: 10px;">삭제</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_garbage()">
+            <img src="resources/img/garbage.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">삭제</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/forward.png" style="width: 50px;height: 50px;" onclick="view_forward()"><br><font style="font-size: 10px;">앞으로</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_forward()">
+            <img src="resources/img/forward.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">앞으로</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/front.png" style="width: 50px;height: 50px;" onclick="view_front()"><br><font style="font-size: 10px;">뒤로</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_front()">
+            <img src="resources/img/front.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">뒤로</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/left_right.png" style="width: 50px;height: 50px;" onclick="view_left_right()"><br><font style="font-size: 10px;">좌우반전</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_left_right()">
+            <img src="resources/img/left_right.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">좌우반전</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/up_down.png" style="width: 50px;height: 50px;" onclick="view_up_down()"><br><font style="font-size: 10px;">상하반전</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_up_down()">
+            <img src="resources/img/up_down.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">상하반전</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/left.png" style="width: 50px;height: 50px;" onclick="view_left()"><br><font style="font-size: 10px;">왼쪽</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_left()">
+            <img src="resources/img/left.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">왼쪽</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/left_right_center.png" style="width: 50px;height: 50px;" onclick="view_left_right_center()"><br><font style="font-size: 10px;">가운데</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_left_right_center()">
+            <img src="resources/img/left_right_center.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">가운데</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/right.png" style="width: 50px;height: 50px;" onclick="view_right()"><br><font style="font-size: 10px;">오른쪽</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_right()">
+            <img src="resources/img/right.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">오른쪽</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/up.png" style="width: 50px;height: 50px;" onclick="view_up()"><br><font style="font-size: 10px;">위</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_up()">
+            <img src="resources/img/up.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">위</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/up_down_center.png" style="width: 50px;height: 50px;" onclick="view_up_down_center()"><br><font style="font-size: 10px;">가운데</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_up_down_center()">
+            <img src="resources/img/up_down_center.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">가운데</font>
          </div>
-         <div onmouseover="style='cursor:pointer;text-align: center;'" style="text-align: center">
-            <img src="resources/img/down.png" style="width: 50px;height: 50px;" onclick="view_down()"><br><font style="font-size: 10px;">아래</font>
+         <div style="text-align: center;cursor:pointer;"onclick="view_down()">
+            <img src="resources/img/down.png" style="width: 50px;height: 50px;" ><br><font style="font-size: 10px;">아래</font>
          </div>
          
       </div>
@@ -449,7 +478,7 @@
             </div>
          </div>
          <div style="background-color:green; width: 600px; height: 600px; border: 1px solid #eaedf0;" id="zz">
-            <div style="width:174px; height:261px; margin-left: 160px; margin-top: 132px;" id="in">
+            <div style="width:320px; height:420px; margin-left: 120px; margin-top: 132px;" id="in">
 <!--                <div id="image1" style="width: 50px; height: 50px;"> -->
 <!--                   <canvas id="myCanvas" style='width: 50px; height: 50px;'></canvas> -->
 <!--                </div> -->
@@ -469,14 +498,14 @@
       상품명 : <label id="design_product">${img_name}</label><br>
          가격 : <label id="design_price">${img_money}</label><br><br>    
       <button style="border: 1px solid gray; background-color: rgba(0,0,0,0); color: black; padding: 5px;" type="button" onclick="change()"> 상품 변경</button>
-      <button style="border: 1px solid gray; background-color: rgba(0,0,0,0); color: black; padding: 5px;" type="button" onclick="re_view()"> 리뷰 보기 및 등록</button><br>
+      <button style="border: 1px solid gray; background-color: rgba(0,0,0,0); color: black; background-color:none; padding: 5px;" type="button" onclick="re_view()"> 리뷰 보기 및 등록</button><br>
       <br>
    <script type="text/javascript">
    //무료이미지 업로드
    function freer(ddd) {
       alert("dd")
       id="myCanvas"+count
-        $('#in').append("<div id='image"+count+"' style='width: 50px; height: 50px; z-index:"+count+"' onclick='imgclick("+count+")'><canvas id='myCanvas"+count+"'style='width: 50px; height: 50px;'></canvas></div>")
+        $('#in').append("<div id='image"+count+"' style='z-index:"+count+";' onclick='imgclick("+count+")'><canvas id='myCanvas"+count+"'style='width: 50px; height: 50px;background-color:none'></canvas></div>")
         $("#image"+count).draggable();
            img[count] = new Image();
             g=img[count];
@@ -547,30 +576,6 @@
          </div>
          
       </div>
-      
-      
-      
-<!--       색상 - 클릭되는 순간 바뀜<br> -->
-<!--       <div style="display: flex; flex: row;"> -->
-<!--          <div style="background-color: #fefefe; border: 1px solid gray; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #ffee49; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;" ></div>  -->
-<!--          <div style="background-color: #fa733c; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #dc3c78; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #8bdfff; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #8be31b; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #06a132; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #1f5bbc; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div> -->
-<!--       </div> -->
-<!--       <div style="display: flex; flex: row;"> -->
-<!--          <div style="background-color: #9d0d1c; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #a5a5aa; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #0a1429; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #080808; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--          <div style="background-color: #f8d6d5; border: 1px solid transparent; width: 30px; height: 30px; border-radius:30px; box-sizing:border-box; cursor:pointer; margin: 5px;"></div>  -->
-<!--       </div> -->
-      
-      
-      
       
       <br>
       
@@ -730,7 +735,6 @@
    <form name="design_review_form" method="post" action="review">
       <input type="hidden" name="review_text" id="review_text" value="${img_name}">
    </form>
-   
    <form action='design' name='design_fimg' method='post'>"
    <input type='hidden' name='imgname' id="op_product">
    <input type='hidden' name='imgmoney' id="op_price">

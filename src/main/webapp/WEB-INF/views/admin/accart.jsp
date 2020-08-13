@@ -68,6 +68,12 @@ padding-top: 40px;
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
+function ad(d) {
+      $("form[name=adminHeader_form]").attr("action",d);
+      adminHeader_form.submit();
+   }
+</script>
+<script type="text/javascript">
 $(document).ready(function() {
    $("#Delbutton").click(function(){ 
       var rowData = new Array(); 
@@ -120,77 +126,77 @@ var size= '${list_size}';
 var ssize;
 var zxc=1;
 function number_click(age) {
-	zxc=age;
-	   if($("#search_result_init").val()==""){
-	        $("#start"+age).val((parseInt(age)*10)-9);
-	        $("#last"+age).val(parseInt(age)*10);
-	        $("#numbtn"+age).trigger("click");
-	     }else{
-	        $("#search_result").val($("#search_result_init").val());
-	        $("#type_result").val($("#type_result_init").val());
-	        $("#start_result").val((parseInt(age)*10)-9);
-	        $("#end_result").val(parseInt(age)*10);
-	        list_form.submit();
-	     }
+   zxc=age;
+      if($("#search_result_init").val()==""){
+           $("#start"+age).val((parseInt(age)*10)-9);
+           $("#last"+age).val(parseInt(age)*10);
+           $("#numbtn"+age).trigger("click");
+        }else{
+           $("#search_result").val($("#search_result_init").val());
+           $("#type_result").val($("#type_result_init").val());
+           $("#start_result").val((parseInt(age)*10)-9);
+           $("#end_result").val(parseInt(age)*10);
+           list_form.submit();
+        }
 }
 function number_onedown() {
-	 
-	 if('${Integer.valueOf(list_last/10)-1>1}')
-	 number_click('${Integer.valueOf(list_last/10)-1}');
+    
+    if('${Integer.valueOf(list_last/10)-1>1}')
+    number_click('${Integer.valueOf(list_last/10)-1}');
 }
 function number_oneup() {
-	  var m;
-	  if('${list_size%10>0}'=='true'){
-	  	m='${Integer.valueOf(list_size/10)+2}';
-	  }else{
-		  m='${Integer.valueOf(list_size/10+1)}';
-	  }
-	  if(parseInt('${Integer.valueOf(list_last/10)+1}')<parseInt(m))
-	  number_click('${Integer.valueOf(list_last/10)+1}');
+     var m;
+     if('${list_size%10>0}'=='true'){
+        m='${Integer.valueOf(list_size/10)+2}';
+     }else{
+        m='${Integer.valueOf(list_size/10+1)}';
+     }
+     if(parseInt('${Integer.valueOf(list_last/10)+1}')<parseInt(m))
+     number_click('${Integer.valueOf(list_last/10)+1}');
 }
 function number_up() {
-	  if('${list_size%10>0}'=='true'){
-	  	number_click('${Integer.valueOf(list_size/10)+1}');
-	  }else{
-		  number_click('${Integer.valueOf(list_size/10)}');
-	  }
+     if('${list_size%10>0}'=='true'){
+        number_click('${Integer.valueOf(list_size/10)+1}');
+     }else{
+        number_click('${Integer.valueOf(list_size/10)}');
+     }
 }
 function number_down() {
-	  number_click(1);
+     number_click(1);
 }
 if(size>10){
-	   $(function (){
-	         $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_down()'><<</div> ");
-	         $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_onedown()'><</div> ");
-	         if('${list_size%10>0}'=='true'){
-	            ssize='${Integer.valueOf(list_size/10)+1}';
-	        }else{
-	           ssize='${Integer.valueOf(list_size/10)}';
-	        }
-	         for(i=0;i<ssize;i++){
-	            $('#num_2').append("<div id='a"+(i+1)+"' style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer; margin-left:10px;' onclick='number_click("+(i+1)+")'>"+(i+1)+"</div>");
-	         $("#num_2").append("<form action='accart' method='post' name='numbtn"+(i+1)+"'>"
-	                 +"<input type='hidden' name='start' id='start"+(i+1)+"'>"
-	                 +"<input type='hidden' name='end' id='last"+(i+1)+"'>"
-	                 +"<input type='submit' style='display:none;' id='numbtn"+(i+1)+"'>"
-	               +"</form>");
-	         if(i+1=='${Integer.valueOf(list_last/10)}'){
-	            $("#a"+(i+1)).css("background-color","#383838f2");
-	            $("#a"+(i+1)).css("color","#fff");
-	         }
-	      }
-	      $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='javascript:number_oneup();' style='text-decoration: none;'>></a></div> ");
-	      $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='javascript:number_up();' style='text-decoration: none;'>>></a></div>");
-	   });
-	}else{
-	   $(function (){
-	      $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'><<</a></div> ");
-	      $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'><</a></div> ");
-	      $('#num_2').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>1</a></div>");
-	      $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>></a></div> ");
-	      $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>>></a></div>");
-	   });
-	}
+      $(function (){
+            $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_down()'><<</div> ");
+            $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_onedown()'><</div> ");
+            if('${list_size%10>0}'=='true'){
+               ssize='${Integer.valueOf(list_size/10)+1}';
+           }else{
+              ssize='${Integer.valueOf(list_size/10)}';
+           }
+            for(i=0;i<ssize;i++){
+               $('#num_2').append("<div id='a"+(i+1)+"' style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer; margin-left:10px;' onclick='number_click("+(i+1)+")'>"+(i+1)+"</div>");
+            $("#num_2").append("<form action='accart' method='post' name='numbtn"+(i+1)+"'>"
+                    +"<input type='hidden' name='start' id='start"+(i+1)+"'>"
+                    +"<input type='hidden' name='end' id='last"+(i+1)+"'>"
+                    +"<input type='submit' style='display:none;' id='numbtn"+(i+1)+"'>"
+                  +"</form>");
+            if(i+1=='${Integer.valueOf(list_last/10)}'){
+               $("#a"+(i+1)).css("background-color","#383838f2");
+               $("#a"+(i+1)).css("color","#fff");
+            }
+         }
+         $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='javascript:number_oneup();' style='text-decoration: none;'>></a></div> ");
+         $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='javascript:number_up();' style='text-decoration: none;'>>></a></div>");
+      });
+   }else{
+      $(function (){
+         $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'><<</a></div> ");
+         $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'><</a></div> ");
+         $('#num_2').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>1</a></div>");
+         $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>></a></div> ");
+         $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='#' style='text-decoration: none;'>>></a></div>");
+      });
+   }
 
 
 function title_search() {
@@ -214,10 +220,17 @@ function title_search() {
     }
  }
  
-function ad(d) {
-	   $("form[name=adminHeader_form]").attr("action",d);
-	   adminHeader_form.submit();
-	}
+
+   
+   $(function() {
+      var ta=0;
+      for(i=1;i<'${paylist.get(paylist.size()-1).rno+1}';i++){
+         if($("#prict_text"+i).text()!=""){
+            ta+=parseInt($("#prict_text"+i).text());
+         }
+      }
+      $("#total").text(ta)
+   })
 </script>
 </head>
 <body class="fix-header">
@@ -247,8 +260,8 @@ function ad(d) {
                 <div class="top-left-part">
                     <!-- Logo -->
                     <a href="index" style="color: black;">
-            			<img class="img1" src="resources/img/MAKE1.PNG" style="width:200px; height: 69PX; color:#F6F6F6;">
-        			</a>  
+                     <img class="img1" src="resources/img/MAKE1.PNG" style="width:200px; height: 69PX; color:#F6F6F6;">
+                 </a>  
                 </div>
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
@@ -274,23 +287,23 @@ function ad(d) {
                     <h3><span class="fa-fw open-close"><i class="ti-close ti-menu"></i></span> <span class="hide-menu">Navigation</span></h3>
                 </div>
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 70px 0 0;">
+                     <li style="padding: 70px 0 0;">
                         <a href="adminindex" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>관리자 메인</a>
                     </li>
                     <li>
-                        <a href="acsearch" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
+                        <a href="javascript:ad('acsearch');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>계정 관리</a>
                     </li>
                     <li>
-                        <a href="acboard" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
+                        <a href="javascript:ad('acboard');" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>Q & A 관리</a>
                     </li>
                     <li>
-                        <a href="acnotice" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
+                        <a href="javascript:ad('acnotice');" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>공지사항 관리</a>
                     </li>
                     <li>
-                        <a href="QuantityManage" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
+                        <a href="javascript:ad('QuantityManage');" class="waves-effect"><i class="fa fa-font fa-fw" aria-hidden="true"></i>재고 관리</a>
                     </li>
                     <li>
-                        <a href="javascript:ad('accart')" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>구매내역 관리</a>
+                        <a href="javascript:ad('accart');" class="waves-effect"><i class="fa fa-globe fa-fw" aria-hidden="true"></i>구매내역 관리</a>
                     </li>
                     <li>
                         <a href="index" class="waves-effect"><i class="fa fa-columns fa-fw" aria-hidden="true"></i>메인으로 나가기</a>
@@ -319,8 +332,14 @@ function ad(d) {
                         <div class="white-box">
                             <h3 class="box-title">BUY MANAGE</h3>
 <!-- 여기서 부터 내용 -->
-					<div align="center" class="div1" style="padding-top: 50px;">
+               <div align="center" class="div1" style="padding-top: 50px;">
+               
    <table border="1" class="table">
+   <caption style="text-align:right;">
+      총 금액 : <label id="total">
+         sdasas
+      </label>
+   </caption>
          <tr>
             <th style="width: 100px"></th>
             <th style="width: 100px">ID</th>
@@ -330,6 +349,7 @@ function ad(d) {
             <th style="width: 150px;">DAY</th>
             <th style="width: 100px;">금액</th>
          </tr>
+         
          <c:forEach var="payList" items="${paylist}">
       <tr>
       <td style="height: 200px;"><input type="checkbox" name="checkBtn"></td>
@@ -338,7 +358,8 @@ function ad(d) {
          <td><div style="background-image: url('${payList.img}'); width:200px; height: 200px;background-size:200px,200px;"></div></td>
          <td>${payList.product}</td>
          <td>${payList.day}</td>
-         <td><fmt:formatNumber value="${payList.totalprice}" pattern="#,###" />원</td>
+         <td><label style="display: none" id="prict_text${payList.rno}">${payList.count*payList.price}</label>
+         <fmt:formatNumber value="${payList.count*payList.price}" pattern="#,###" />원</td>
       </tr>
       </c:forEach>
    </table>
@@ -367,20 +388,20 @@ function ad(d) {
       </div>
 </div>
     <div align="center">
-    	<div style="display: flex; flex-flow:low; margin-bottom: 50px; justify-content: center;align-items: center;" align="center">
-    		<div id="num_1" style="display: flex; flex-flow:low; width: 100px; "></div>
-    		<div id="num_2" style="display: flex; flex-flow:low;"></div>
-    		<div id="num_3" style="display: flex; flex-flow:low; width: 100px;"></div>
+       <div style="display: flex; flex-flow:low; margin-bottom: 50px; justify-content: center;align-items: center;" align="center">
+          <div id="num_1" style="display: flex; flex-flow:low; width: 100px; "></div>
+          <div id="num_2" style="display: flex; flex-flow:low;"></div>
+          <div id="num_3" style="display: flex; flex-flow:low; width: 100px;"></div>
         </div>
     </div>
-	<form action="accart_search" name="list_form" method="post">
-      	<input type="hidden" name="search_result" id="search_result">
-      	<input type="hidden" name="type_result" id="type_result">
-      	<input type='hidden' name='start_result' id='start_result' value="1">
-    	<input type='hidden' name='end_result' id='end_result' value="10">
-	</form>
-   	<input type="hidden" value="${list_search_result}" id="search_result_init">
-   	<input type="hidden" value="${list_type_result}" id="type_result_init">
+   <form action="accart_search" name="list_form" method="post">
+         <input type="hidden" name="search_result" id="search_result">
+         <input type="hidden" name="type_result" id="type_result">
+         <input type='hidden' name='start_result' id='start_result' value="1">
+       <input type='hidden' name='end_result' id='end_result' value="10">
+   </form>
+      <input type="hidden" value="${list_search_result}" id="search_result_init">
+      <input type="hidden" value="${list_type_result}" id="type_result_init">
 
                     </div>
                 </div>
@@ -410,10 +431,10 @@ function ad(d) {
     <script src="resources/adjs/dashboard1.js"></script>
     <script src="resources/plugins/bower_components/toast-master/js/jquery.toast.js?a"></script>
 
-<!-- <form name="adminHeader_form" method="post"> -->
-<!-- 	<input type="hidden" id="adminHeader_form_start" name="start" value="1"> -->
-<!-- 	<input type="hidden" id="adminHeader_form_end" name="end" value="10"> -->
-<!-- </form> -->
+<form name="adminHeader_form" method="post">
+   <input type="hidden" id="adminHeader_form_start" name="start" value="1">
+   <input type="hidden" id="adminHeader_form_end" name="end" value="10">
+</form>
 </body>
 
 </html>

@@ -81,6 +81,7 @@
    var count2 = 0;
    var f2;
    function img_next2(a,d){
+      
       f = $("#fileimg22"+d).val();
       f2 = f.split(",");
       if(a =="+"){
@@ -89,15 +90,15 @@
          if(count2 == f2.length){
             count2=0;
          }
-         $("#ssd"+d).attr("src", f2[count2]);
+         $("#review_fileimg"+d).attr("src", f2[count2]);
       }
       if(a == "-"){
-
+   
          count2--;
          if(count2==-1){
             count2=f2.length-1;
          }
-         $("#ssd"+d).attr("src", f2[count2]);
+         $("#review_fileimg"+d).attr("src", f2[count2]);
          
       }
    }
@@ -152,7 +153,6 @@ function type_ch(t) {
 function gogogo(){
    var tmp = $('[name=bubble]').prop('checked'); // 변수에 넣기
    if(tmp==true){
-      alert('성공?');
       $('#img').css('display','block');
       $('#text').css('display','none');
    }
@@ -612,11 +612,53 @@ active : 클릭했을 때 링크 상태 -->fieldset {
    border: none;
    vertical-align: top;
 }
+
 </style>
+<style >
+*{margin:0; padding:0;}
+a.button{display:inline-block; padding: 10px 20px; text-decoration:none; color:#fff; background:#000; margin:20px;}
+#modal{
+  display:none;
+  position:fixed; 
+  width:100%; height:100%;
+  top:0; left:0; 
+  background:rgba(0,0,0,0.3);
+}
+.modal-con{
+  display:none;
+  position:fixed;
+  top:50%; left:50%;
+  transform: translate(-50%,-50%);
+  max-width: 60%;
+  min-height: 30%;
+  background:#fff;
+}
+.modal-con .title{
+  font-size:20px; 
+  padding: 20px; 
+}
+.modal-con .con{
+  font-size:15px; line-height:1.3;
+  padding: 15px;
+  width: 900px; 
+  height: 700px; 
+}
+.modal-con .close{
+  display:block;
+  position:absolute;
+  width:30px; height:30px;
+  border-radius:50%; 
+  border: 3px solid #000;
+  text-align:center; line-height: 30px;
+  text-decoration:none;
+  color:#000; font-size:20px; font-weight: bold;
+  right:10px; top:10px;
+}  
+</style>
+
 </head>
 <body>
    <jsp:include page="../default/header.jsp" />
-
    <div style="display: flex; flex: row; width: 1100px; margin: 0 auto;"
       align="center">
       <div class="form"
@@ -751,7 +793,8 @@ active : 클릭했을 때 링크 상태 -->fieldset {
 
                                     <div style="width: 200px; height: auto;">
                                        <img src="${dto.fileimg.split(',')[0]}"
-                                          style="width: 200px;" id="ssd${dto.rno}">
+                                          style="width: 200px;" id="ssd${dto.rno}"
+                                          onclick="modal(${dto.rno})">
                                     </div>
                                  </c:if>
                               </div>
@@ -770,7 +813,7 @@ active : 클릭했을 때 링크 상태 -->fieldset {
 
                                     <div style="width: 200px; height: auto;">
                                        <img src="${dto.fileimg.split(',')[0]}"
-                                          style="width: 200px;" id="ssd${dto.rno}">
+                                          style="width: 200px;" id="ssd${dto.rno}" onclick="modal(${dto.rno})">
                                     </div>
                                  </c:if>
                               </div>
@@ -789,7 +832,7 @@ active : 클릭했을 때 링크 상태 -->fieldset {
 
                                     <div style="width: 200px; height: auto;">
                                        <img src="${dto.fileimg.split(',')[0]}"
-                                          style="width: 200px;" id="ssd${dto.rno}">
+                                          style="width: 200px;" id="ssd${dto.rno}" onclick="modal(${dto.rno})">
                                     </div>
                                  </c:if>
                               </div>
@@ -813,6 +856,8 @@ active : 클릭했을 때 링크 상태 -->fieldset {
          </p>
       </div>
    </div>
+
+   
    <jsp:include page="../default/footer.jsp" />
 
    <form action="review_search" method="post" name="search_form">
@@ -826,6 +871,71 @@ active : 클릭했을 때 링크 상태 -->fieldset {
       <input type="hidden" name="imgname" id="index_imgname_text"> <input
          type="hidden" name="imgmoney" id="index_imgmoney_text">
    </form>
+
+<div id="modal"></div>
+  <div class="modal-con">
+    <a href="javascript:;" class="close">X</a>
+    <div class="con" >
+       <div style="display:flex; flex: row;">
+       <div style="height: 674px; width: 60%; overflow: hidden;">
+          <label onclick=""  style='font-size: 40px; cursor: pointer; width: 10%; height: 10%; position: absolute; top: 44%; left:3%; z-index: 2;' id='inp' class="inp"> < </label>
+          <img src="resources/img/1.jpg" id="review_fileimg" style="    height: auto; width: 129%; overflow: hidden; z-index: 1;" class="review_fileimg">
+          <label onclick='' style='font-size: 40px; cursor: pointer; width: 10%; height: 10%; position: absolute; top: 46%; left: 56%; z-index: 2;' id='dep' class="dep"> > </label>
+       </div>
+       
+          <label class="review_id" style="position: fixed; top: 4%; left: 62%;"></label> 
+          <label class="review_content" style="position: fixed; top: 27%; left: 62%; width: 280px;"></label> 
+          
+          <div id="dd" style="position: fixed; bottom: 12px; right: 1%; border: 1px solid #d5dbe0; padding: 16px; height: 71px; width: 350px;">
+          <img style="width: 50px; height: 50px; width: 50px;height: 50px;position: absolute; top: 13%; left: 3%;" src="" class="designimg">
+          <label class="img" style="top: 27px; left: 69px; position: absolute;"></label>
+          <img style="width:30px; top: 21px; left: 289px; position: absolute;" src="resources/img/gogo.png">
+          </div>
+       </div>
+    </div>
+  </div>
+
+
+   <script>
+      function modal(d){
+           document.get
+           f = $("#fileimg22"+d).val();
+           content = $("#content"+d).val();
+           id = $("#name"+d).text();
+           type=$("#type"+d).val();
+           title=$("#title"+d).text();
+           
+           
+           if(type == 'earring'){
+              $(".designimg").attr('src','resources/img/'+type+' design/'+title+'1.png');
+           }else{
+              $(".designimg").attr('src','resources/img/'+type+' design/'+title+'.png');
+           }
+           
+           $(".img").text(title);
+           $("#dd").attr('onclick', 'design('+d+')');
+           
+           $("#modal").fadeIn(300);
+           $(".modal-con").fadeIn(300);
+           $(".review_fileimg").attr('src', f.split(',')[0]);
+           $(".review_fileimg").attr('id', "review_fileimg"+d);
+           $(".inp").attr('id', "inp"+d);
+           $(".dep").attr('id', "dep"+d);
+           $("#inp"+d).attr('onclick',"img_next2(\"-\","+d+")");
+           $("#dep"+d).attr('onclick',"img_next2(\"+\","+d+")");
+           $(".review_content").attr('id', 'review_content'+d);
+           $("#review_content"+d).text(content);
+           $(".review_id").attr('id', 'review_id'+d);
+           $("#review_id"+d).text(id);
+           
+           
+      }
+      
+      $("#modal, .close").on('click',function(){
+           $("#modal").fadeOut(300);
+           $(".modal-con").fadeOut(300);
+         }); 
+   </script>
 
 </body>
 </html>

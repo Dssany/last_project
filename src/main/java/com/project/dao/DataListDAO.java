@@ -31,12 +31,8 @@ public class DataListDAO {
 		sqlSession.update(namepasce + ".updateQuantity",dto);
 	}
 
-	public List<DataListDTO> selectPick(String choice){
-		if(choice.equals("All")) {
-			return sqlSession.selectList(namepasce+".dataselectAll_List");
-		}else {
-			return sqlSession.selectList(namepasce + ".selectPick",choice);
-		}
+	public List<DataListDTO> selectPick(DataListDTO dto){
+			return sqlSession.selectList(namepasce + ".selectPick",dto);
 
 	}
 	public List<DataListDTO> select_number_ran(DataListDTO dto) {
@@ -45,7 +41,9 @@ public class DataListDAO {
 	public List<DataListDTO> select_number(DataListDTO dto) {
 		return sqlSession.selectList(namepasce + ".select_number",dto);
 	}
-
+	public List<DataListDTO> select_name_Pick(DataListDTO dto) {
+		return sqlSession.selectList(namepasce + ".select_name_Pick",dto);
+	}
 	public String select_count(DataListDTO dto) {
 		return sqlSession.selectOne(namepasce + ".select_count",dto);
 	}
@@ -63,7 +61,13 @@ public class DataListDAO {
 		return sqlSession.selectList(namepasce + ".select_cookie_four",dto);
 	}
 	public String select_price(String product) {
-		   return sqlSession.selectOne(namepasce + ".select_price", product);
-		}
+		return sqlSession.selectOne(namepasce + ".select_price", product);
+	}
+	public List<DataListDTO> select_all_number(DataListDTO dto) {
+		return sqlSession.selectList(namepasce + ".select_all_number",dto);
+	}
 
+	public String selectall_count(DataListDTO dto) {
+		return sqlSession.selectOne(namepasce + ".selectall_count",dto);
+	}
 }

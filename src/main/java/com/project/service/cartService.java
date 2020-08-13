@@ -39,14 +39,14 @@ public class cartService {
 		List<PayDTO> arr = dao.select(id);
 		return arr;
 	}
-	public void cart_delete(HttpServletRequest request,String img) {
+	public void cart_delete(HttpServletRequest request,String img, String rno) {
 		PayDTO dto = new PayDTO();
 		HttpSession session = request.getSession();
 		dto.setId(session.getAttribute("id").toString());
-		dto.setImg(img);
+		dto.setRno(rno);
 		dao.delete(dto);
 		// 삭제할 파일 경로
-		File file = new File("D:\\jang\\0715\\last_project\\src\\main\\webapp\\resources\\userimg\\"+img.split("/")[1]); 
+		File file = new File("D:\\jang\\0717\\last_project\\src\\main\\webapp\\resources\\userimg\\"+img.split("/")[1]); 
 		if( file.exists() ){ 
 			if(file.delete()) { 
 				System.out.println("파일삭제 성공"); 

@@ -17,6 +17,7 @@ import com.project.dto.CommnuityDTO;
 import com.project.dto.DataListDTO;
 import com.project.dto.PayDTO;
 import com.project.dto.ReplyDTO;
+import com.project.dto.UserDTO;
 import com.project.service.AdminService;
 import com.project.service.CommunityService;
 import com.project.service.ProjectService;
@@ -44,14 +45,20 @@ public class AdminController {
    }
       
    @RequestMapping("acsearch")
-   public String acsearch(Model model) {
-      service.select(model);
+   public String acsearch(Model model,UserDTO dto) {
+      service.select(model,dto);
       return "admin/Acsearch";
    }
    @RequestMapping("acboard")
    public String acboard(Model model,CommnuityDTO dto) {
        serviceCom.listAll(dto,model);
       return "admin/Acboard";
+   }
+   @RequestMapping(value="acsearch_search", method = RequestMethod.POST)
+   public String title_search(UserDTO dto, Model model, @RequestParam String type_result,@RequestParam String search_result,
+         @RequestParam String start_result,@RequestParam String end_result) {
+     service.user_search(dto,model,type_result,search_result,start_result,end_result);
+      return "admin/Acsearch";
    }
    @RequestMapping(value="acboard_serch", method = RequestMethod.POST)
    public String title_search(CommnuityDTO dto, Model model, @RequestParam String type_result,@RequestParam String search_result,
@@ -71,6 +78,11 @@ public class AdminController {
       serviceCom.cart_search(dto,model,type_result,search_result,start_result,end_result);
       return "admin/accart";
    }
+   @RequestMapping(value="quantity_search", method = RequestMethod.POST)
+   public String quantity_search(DataListDTO dto, Model model, @RequestParam String search_result) {
+	   serviceAdm.quantity_search(dto,model,search_result);
+      return "admin/QuantityManage";
+   }
    
    @RequestMapping("acboardIns")
    public String acboardIns() {
@@ -87,11 +99,18 @@ public class AdminController {
    public String DelUser(@RequestParam String idval) {
       System.out.println(idval);
       String[] arr = idval.split(" ");
-      for(int i=0;i<arr.length;i++) {
-         service.delete(arr[i]);
+      if(arr[0].split(",")[1].equals("myinfo")) {
+         service.delete(arr[0].split(",")[0]);
+      }else {
+         for(int i=0;i<arr.length;i++) {
+            service.delete(arr[i]);
+         }
       }
-      
-      return "redirect:acsearch";
+      if(arr[0].split(",")[1].equals("myinfo")) {
+         return "redirect:index";
+      }else {
+         return "redirect:acsearch";
+      }
    }
    
    @RequestMapping("DelBoard")
@@ -181,9 +200,14 @@ public class AdminController {
    }
    
    @RequestMapping("QuantityManage")
-   public String QuantityManage(Model model) {
-      serviceAdm.selectAllQuantity(model);
+   public String QuantityManage(Model model,@RequestParam String start,@RequestParam String end) {
+      serviceAdm.selectAllQuantity(model,start,end);
+      return "admin/QuantityManage";
       
+   }
+   @RequestMapping("QuantityManage_search")
+   public String QuantityManage_search(Model model,@RequestParam String start,@RequestParam String end) {
+      serviceAdm.selectQuantity(model,start,end);
       return "admin/QuantityManage";
       
    }
@@ -212,10 +236,12 @@ public class AdminController {
    
    
     @RequestMapping("categorySelect")
-    public String categorySelect(@RequestParam String choice,Model model) {
-       serviceAdm.choiceCategory(choice,model);
+    public String categorySelect(@RequestParam String choice,Model model,@RequestParam String start,@RequestParam String end) {
+       serviceAdm.choiceCategory(choice,model,start,end);
        return "admin/QuantityManage";
     }
+    
+    
     
     @RequestMapping("AddProductPopup")
     public String AddProductPopup() {
@@ -231,6 +257,10 @@ public class AdminController {
        return "redirect:QuantityManage";
        
        
+    }
+    @RequestMapping("adminjoin")
+    public String adminjoin() {
+       return "admin/adminjoin";
     }
 
 }

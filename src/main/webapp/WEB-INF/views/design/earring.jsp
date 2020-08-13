@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.box {
+.earring_box {
    width: 800px;
    height: 600px;
    display: flex;
@@ -15,44 +15,44 @@
    margin-right: 50px;
 }
 
-.box2 {
+.earring_box2 {
    width: 500px;
    height: 500px;
    display: flex;
    flex: colum;
 }
 
-.img1 {
+.earring_img1 {
    width: 600px;
    height: 600px;
    padding-right: 10px;
 }
 
-.img2 {
+.earring_img2 {
    width: 100px;
    height: 100px;
    margin-top: 10px;
 }
-.btn { 
-   display:block; 
-   width:70px; 
-   height:40px; 
-   line-height:40px; 
-   border:1px gray solid; 
-   margin:15px auto; 
-   background-color:white; 
-   cursor: pointer; 
-   color:#333; 
-   transition:all 0.9s, color 0.3; 
-   } 
-.btn:hover{color:#fff;}
-.hover1:hover{ box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset; }
-#layout { 
-  color:#FFF; 
-  width: 400px;
-  height: 300px; 
-}
-.stars {
+/* .btn {  */
+/*    display:block;  */
+/*    width:70px;  */
+/*    height:40px;  */
+/*    line-height:40px;  */
+/*    border:1px gray solid;  */
+/*    margin:15px auto;  */
+/*    background-color:white;  */
+/*    cursor: pointer;  */
+/*    color:#333;  */
+/*    transition:all 0.9s, color 0.3;  */
+/*    }  */
+/* .btn:hover{color:#fff;} */
+/* .hover1:hover{ box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset; } */
+/* #layout {  */
+/*   color:#FFF;  */
+/*   width: 400px; */
+/*   height: 300px;  */
+/* } */
+.earring_stars {
   z-index: 0; position: absolute;
   background-image: url(   http://www.14denoviembre.es/img/hori.png ), url( http://www.14denoviembre.es/img/stars_5.png );
   background-repeat: repeat-x,repeat-x repeat-y;
@@ -62,7 +62,7 @@
   display: none;
   
 }
-.content {
+.earring_content {
   height: 60px;
   width: 100px;
   margin: 15px;
@@ -260,9 +260,9 @@
 
    handleMouseOver = (element, key) => {
      console.log(element, key)
-     element.className = "content "+key;
+     element.className = "earring_content "+key;
      element.addEventListener("animationend", () => {
-       element.className = "content";
+       element.className = "earring_content";
      });
    }
    
@@ -296,15 +296,17 @@
    var price=${earring_list_price};
    var product=${earring_list_product};
    $(function(){
-      $("#earring_main").append("<img class='img1' src='"+img[0]+"' id='earring_main_img'>");
+      $("#earring_main").append("<img class='earring_img1' src='"+img[0]+"' id='earring_main_img'>");
       for(i=0;i<size;i++){
-         $("#earring_sub").append("<img class='img2' src='"+img[i]+"' onmouseover='imgch(this)'>");
+         $("#earring_sub").append("<img class='earring_img2' src='"+img[i]+"' onmouseover='imgch(this)'>");
          if(i!=parseInt(size)-1){
             $("#earring_sub").append("<br>");
          }
       }
    });
    function earring_cart() {
+      alert("장바구니?")
+      if("${sessionScope.id}"!=""){
       ss=${earring_list_product.get(0)};
          uimg="resources/img/earring pitting/"+ss+".webp";
              n=${earring_list_product.get(0)}
@@ -322,6 +324,9 @@
                    alert('장바구니 저장 실패');
                 }
              });
+      }else{
+            alert("로그인 해주세요");
+         }
       }
 
    
@@ -470,9 +475,9 @@
 <body>
    <jsp:include page="../default/header.jsp" />
    <div align="center"
-      style="width: 1230px; margin-left: 100px; margin: 0 auto; margin-top: 150px; display: flex; flex: row">
+      style="width: 1230px; margin-left: 100px; margin: 0 auto; margin-top: 150px; display: flex; flex: row;">
       
-      <div class="box">
+      <div class="earring_box">
 
          <div id="earring_main"></div>
          <div id="earring_sub"></div>
@@ -480,7 +485,7 @@
 
       </div>
       
-      <div class="box2">
+      <div class="earring_box2">
          <div align="left" style="width: 100%; height: 100%;">
             <div style="text-align: left; font-size: 20px;">
                <div>
@@ -505,20 +510,20 @@
             </div>
             <br>
             <div style="display: flex; flex: row;">
-               <div id="layout" class="stars" >
+               <div id="layout" class="earring_stars" >
                  <div id="ShootingStarParams"></div>
                  </div>
                     <div>
-                 <div class="content" style="background-color:#1F8DD6;" onmouseover="handleMouseOver(this, 'bounce')"></div>
-                     <div class="content" style="background-color:#FBB44C;" onmouseover="handleMouseOver(this, 'shake')"></div>
-                     <div class="content" style="background-color:#2ABB9B;" onmouseover="handleMouseOver(this, 'fadeOut')"></div>
-                     <div class="content" style="background-color:#6EB6E5;" onmouseover="handleMouseOver(this, 'zoomIn')"></div>
+                 <div class="earring_content" style="background-color:#1F8DD6;" onmouseover="handleMouseOver(this, 'bounce')"></div>
+                     <div class="earring_content" style="background-color:#FBB44C;" onmouseover="handleMouseOver(this, 'shake')"></div>
+                     <div class="earring_content" style="background-color:#2ABB9B;" onmouseover="handleMouseOver(this, 'fadeOut')"></div>
+                     <div class="earring_content" style="background-color:#6EB6E5;" onmouseover="handleMouseOver(this, 'zoomIn')"></div>
                   </div>
                   <div>
-                    <div class="content" style="background-color:#FC797A;" onmouseover="handleMouseOver(this, 'hinge')"></div>
-                  <div class="content" style="background-color:#FFDA72;" onmouseover="handleMouseOver(this, 'zoomInLeft')"></div>
-                  <div class="content" style="background-color:#FF9672;" onmouseover="handleMouseOver(this, 'slideOutLeft')"></div>
-                  <div class="content" style="background-color:#68E9AB;" onmouseover="handleMouseOver(this, 'zoomInDown')"></div>
+                    <div class="earring_content" style="background-color:#FC797A;" onmouseover="handleMouseOver(this, 'hinge')"></div>
+                  <div class="earring_content" style="background-color:#FFDA72;" onmouseover="handleMouseOver(this, 'zoomInLeft')"></div>
+                  <div class="earring_content" style="background-color:#FF9672;" onmouseover="handleMouseOver(this, 'slideOutLeft')"></div>
+                  <div class="earring_content" style="background-color:#68E9AB;" onmouseover="handleMouseOver(this, 'zoomInDown')"></div>
                   </div>
             </div>
             <button type="button" onclick="earring_cart()"
@@ -528,7 +533,8 @@
          </div>
       </div>
    </div>
-   
+   <br><br><br><br><br>
+   <div><jsp:include page="../default/footer.jsp" /></div>
 
    <form name="changeopen">
       <input type="hidden" name="change_val" id="change_val"
@@ -545,6 +551,6 @@
       <input type="hidden" name="review_text" id="review_text"
          value="${earring_list_product.get(0)}">
    </form>
-   <div><jsp:include page="../default/footer.jsp" /></div>
+   
 </body>
 </html>

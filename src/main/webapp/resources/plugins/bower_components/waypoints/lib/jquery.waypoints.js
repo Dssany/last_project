@@ -446,12 +446,12 @@ https://github.com/imakewebthings/waypoints/blog/master/licenses.txt
     return contexts[element.waypointContextKey]
   }
 
-  window.onload = function() {
-    if (oldWindowLoad) {
-      oldWindowLoad()
-    }
-    Context.refreshAll()
-  }
+//  window.onload = function() {
+//    if (oldWindowLoad) {
+//      oldWindowLoad()
+//    }
+//    Context.refreshAll()
+//  }
 
   Waypoint.requestAnimationFrame = function(callback) {
     var requestFn = window.requestAnimationFrame ||
