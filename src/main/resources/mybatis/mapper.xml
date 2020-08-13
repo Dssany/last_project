@@ -83,14 +83,18 @@
       '%pitting%') a ) where num between #{start} and #{end}
    </select>
    <!-- 유저 정보 -->
-   <select id="selectAll_User" resultType="userdto"
+      <select id="selectAll_User" resultType="userdto"
       parameterType="userdto">      <!-- com.care.mybatis.myMapper.listAll을 통해 경로 설정이 가능 -->
-      select * from self_design
+      select * from (select rownum num, a.* from (select * from self_design where id not like '%/admin/%') a ) where num between #{start} and #{end}
    </select>
    <select id="select_User" resultType="userdto"
       parameterType="userdto">
       select * from self_design where id=#{id}
    </select>
+   <select id="select_user_count" resultType="String">
+      select count(*) from self_design where id not like '%/admin/%'
+   </select>
+   
    <insert id="insert_User" parameterType="userdto">
       insert into self_design
       values(#{id},#{pw},#{name},#{addr1},#{addr2},#{addr3},#{phon},#{email})
@@ -119,6 +123,28 @@
       select * from self_design where id=#{id} and
       email=#{email}
    </select>
+   <select id="listSearch_id" resultType="userdto" parameterType="userdto">
+      select * from (select rownum num, a.* from (select * from self_design where id LIKE '%'||#{id}||'%'
+      ) a ) where num between #{start} and #{end}
+   </select>
+   <select id="listSearch_name" resultType="userdto" parameterType="userdto">
+      select * from (select rownum num, a.* from (select * from self_design where name like '%'||#{name}||'%'
+      ) a ) where num between #{start} and #{end}
+   </select>
+   <select id="listSearch_phon" resultType="userdto" parameterType="userdto">
+      select * from (select rownum num, a.* from (select * from self_design where phon = #{phon}
+      ) a ) where num between #{start} and #{end}
+   </select>
+   <select id="listSearch_id_count" resultType="String" parameterType="userdto">
+      select count(*) from self_design where id like '%'||#{id}||'%'
+   </select>
+   <select id="listSearch_name_count" resultType="String" parameterType="userdto">
+      select count(*) from self_design where name like '%'||#{name}||'%'
+   </select>
+   <select id="listSearch_phon_count" resultType="String" parameterType="userdto">
+      select count(*) from self_design where phon = #{phon}
+   </select>
+
 
 
 

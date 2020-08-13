@@ -99,8 +99,8 @@ font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Ap
 }
 .btn:hover{
 background: #7d7d7d;
-	color:white;
-	transition: all 0.12s ease-in-out;
+   color:white;
+   transition: all 0.12s ease-in-out;
 }
 .util{
 padding-bottom: 10px;
@@ -170,9 +170,9 @@ if(size>10){
            }
             var act
             if('${list_choice_result}'==''){
-            	act='QuantityManage';
+               act='QuantityManage';
             }else{
-            	act='categorySelect';
+               act='categorySelect';
             }
             for(i=0;i<ssize;i++){
                $('#num_2').append("<div id='a"+(i+1)+"' style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer; margin-left:10px;' onclick='number_click("+(i+1)+")'>"+(i+1)+"</div>");
@@ -265,17 +265,17 @@ $(document).ready(function() {
    
    
    $("#AddProduct").click(function(){
-	   
-	   var _width = '600';
-	    var _height = '400';
-	 
-	    // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-	    var _left = Math.ceil(( window.screen.width - _width )/2);
-	    var _top = Math.ceil(( window.screen.height - _height )/2); 
-	 
-	    window.open('AddProductPopup', '상품등록', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top ,'location=no');
+      
+      var _width = '600';
+       var _height = '400';
+    
+       // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+       var _left = Math.ceil(( window.screen.width - _width )/2);
+       var _top = Math.ceil(( window.screen.height - _height )/2); 
+    
+       window.open('AddProductPopup', '상품등록', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top ,'location=no');
 
-	   
+      
       
    });
    
@@ -295,7 +295,7 @@ $(document).ready(function() {
          
          Swal.fire({
               title: '상품을 삭제하시겠습니까?',
-              text: '선택하신 상품 : '+product+' 을 정말 삭제하시겠습니까?',
+              text: '선택하신 상품을 정말 삭제하시겠습니까?',
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -325,15 +325,79 @@ $(document).ready(function() {
               }
             })
       });
+   
+   
+   
+   
+   $("#Delbutton").click(function(){ 
+	   
+	      var rowData = new Array(); 
+	        var tdArr = new Array();
+	        var checkbox = $("input[name=checkBtn]:checked");
+
+	   checkbox.each(function(i) {
+	        var tr = checkbox.parent().parent().eq(i);
+	        var td = tr.children();
+	       
+	        rowData.push(tr.text());
+	        var product = td.eq(3).text()+" ";
+	        tdArr.push(product);
+	                
+	          });
+	      var str = ""
+	      var count = ""
+	      for(var i=0; i<tdArr.length; i++) {
+	         console.log(tdArr[i])
+	         str +=tdArr[i]
+	         count = i +1
+	      }
+	      
+	      Swal.fire({
+	           title: '상품을 삭제하시겠습니까?',
+	           text: '선택하신 상품 '+count+'개를 정말 삭제하시겠습니까?',
+	           icon: 'warning',
+	           showCancelButton: true,
+	           confirmButtonColor: '#3085d6',
+	           cancelButtonColor: '#d33',
+	           confirmButtonText: 'Yes, delete it!'
+	      }).then((result) => {
+	           if (result.value) {
+	             Swal.fire({
+	                title:'Deleted!',
+	                text: '성공적으로 삭제되었습니다!',
+	                icon: 'success',
+	               preConfirm:function(){
+	            	   $.ajax({
+	                          url: "DelProduct",
+	                          type: "POST",
+	                          data: {product:str},
+	                          success: function(data){
+	                        	 reloadList();  
+	                              
+	                          },
+	                          error: function(){
+	                              alert("error");
+	                          }
+	                   
+	                      });
+	                }
+	             })
+	           }
+	         })
+	   });
+	  
+   
+   
+   
 });
    
    function reloadList(){
       location.reload();
    }
    function ad(d) {
-	   $("form[name=adminHeader_form]").attr("action",d);
-	   adminHeader_form.submit();
-	}
+      $("form[name=adminHeader_form]").attr("action",d);
+      adminHeader_form.submit();
+   }
    
 </script>
 
@@ -357,8 +421,8 @@ $(document).ready(function() {
                 <div class="top-left-part">
                     <!-- Logo -->
                     <a href="index" style="color: black;">
-            			<img class="img1" src="resources/img/MAKE1.PNG" style="width:200px; height: 69PX; color:#F6F6F6;">
-        			</a>  
+                     <img class="img1" src="resources/img/MAKE1.PNG" style="width:200px; height: 69PX; color:#F6F6F6;">
+                 </a>  
                 </div>
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
@@ -429,7 +493,8 @@ $(document).ready(function() {
                         <div class="white-box">
                             <h3 class="box-title">PRODUCT MANAGE</h3>
 <!-- 여기서 부터 내용 -->
-					<div class="util"><input type="button" class="btn" id="AddProduct" value="상품등록">&nbsp;<button type="button" class="btn" id="Delbutton">상품삭제</button></div>
+               <div class="util"><input type="button" class="btn" id="AddProduct" value="상품등록">&nbsp;
+               <button type="button" class="btn" id="Delbutton">상품삭제</button></div>
 
 <div align="center" class="div1">
    <table border="1" class="table" id="thetable">
@@ -501,7 +566,7 @@ $(document).ready(function() {
          </div>
          <!-- search{e} -->
       </div>
-	<div align="center">
+   <div align="center">
        <div style="display: flex; flex-flow:low; margin-bottom: 50px; justify-content: center;align-items: center;" align="center">
           <div id="num_1" style="display: flex; flex-flow:low; width: 100px; "></div>
           <div id="num_2" style="display: flex; flex-flow:low;"></div>
@@ -525,7 +590,7 @@ $(document).ready(function() {
         </div>
     </div>
     </div>
-    <script src="resources/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="resources/adbootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Menu Plugin JavaScript -->
@@ -547,10 +612,10 @@ $(document).ready(function() {
     <script src="resources/adjs/dashboard1.js"></script>
     <script src="resources/plugins/bower_components/toast-master/js/jquery.toast.js?a"></script>
 
-	<form name="adminHeader_form" method="post">
-	<input type="hidden" id="adminHeader_form_start" name="start" value="1">
-	<input type="hidden" id="adminHeader_form_end" name="end" value="10">
-	</form>
-	
+   <form name="adminHeader_form" method="post">
+   <input type="hidden" id="adminHeader_form_start" name="start" value="1">
+   <input type="hidden" id="adminHeader_form_end" name="end" value="10">
+   </form>
+   
 </body>
 </html>

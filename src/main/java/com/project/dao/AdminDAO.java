@@ -76,8 +76,8 @@ public class AdminDAO {
 		sqlSession.insert(namepasce+".AddProduct",dto);
 	}
 	
-	public void DelProduct(String product) {
-		sqlSession.delete(namepasce+ ".DelProduct",product);
+	public int DelProduct(String product) {
+		return sqlSession.delete(namepasce+ ".DelProduct",product);
 	}
 
 	 public String notice_select_count() {

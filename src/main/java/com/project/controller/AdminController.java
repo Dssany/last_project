@@ -251,10 +251,14 @@ public class AdminController {
     
     @RequestMapping("DelProduct")
     public String DelProduct(@RequestParam String product) {
+    	String[] arr = product.split(" ");
+        for(int i=0;i<arr.length;i++) {
+           serviceAdm.DelProduct(arr[i]);
+        }
        System.out.println(product);
-       serviceAdm.DelProduct(product);
+      
        
-       return "redirect:QuantityManage";
+       return "admin/QuantityManage";
        
        
     }

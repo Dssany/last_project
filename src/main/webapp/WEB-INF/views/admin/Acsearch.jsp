@@ -103,63 +103,63 @@ var size= ${list_size}
 var ssize;
 var zxc=1;
 function number_click(age) {
-	zxc=age;
-	   if($("#search_result_init").val()==""){
-	        $("#start"+age).val((parseInt(age)*10)-9);
-	        $("#last"+age).val(parseInt(age)*10);
-	        $("#numbtn"+age).trigger("click");
-	     }else{
-	        $("#search_result").val($("#search_result_init").val());
-	        $("#type_result").val($("#type_result_init").val());
-	        $("#start_result").val((parseInt(age)*10)-9);
-	        $("#end_result").val(parseInt(age)*10);
-	        list_form.submit();
-	     }
+   zxc=age;
+      if($("#search_result_init").val()==""){
+           $("#start"+age).val((parseInt(age)*10)-9);
+           $("#last"+age).val(parseInt(age)*10);
+           $("#numbtn"+age).trigger("click");
+        }else{
+           $("#search_result").val($("#search_result_init").val());
+           $("#type_result").val($("#type_result_init").val());
+           $("#start_result").val((parseInt(age)*10)-9);
+           $("#end_result").val(parseInt(age)*10);
+           list_form.submit();
+        }
 }
 function number_onedown() {
-	 
-	 if('${Integer.valueOf(list_last/10)-1>1}')
-	 number_click('${Integer.valueOf(list_last/10)-1}');
+    
+    if('${Integer.valueOf(list_last/10)-1>1}')
+    number_click('${Integer.valueOf(list_last/10)-1}');
 }
 function number_oneup() {
-	  var m;
-	  if('${list_size%10>0}'=='true'){
-	  	m='${Integer.valueOf(list_size/10)+2}';
-	  }else{
-		  m='${Integer.valueOf(list_size/10+1)}';
-	  }
-	  if(parseInt('${Integer.valueOf(list_last/10)+1}')<parseInt(m))
-	  number_click('${Integer.valueOf(list_last/10)+1}');
+     var m;
+     if('${list_size%10>0}'=='true'){
+        m='${Integer.valueOf(list_size/10)+2}';
+     }else{
+        m='${Integer.valueOf(list_size/10+1)}';
+     }
+     if(parseInt('${Integer.valueOf(list_last/10)+1}')<parseInt(m))
+     number_click('${Integer.valueOf(list_last/10)+1}');
 }
 function number_up() {
-	  if('${list_size%10>0}'=='true'){
-	  	number_click('${Integer.valueOf(list_size/10)+1}');
-	  }else{
-		  number_click('${Integer.valueOf(list_size/10)}');
-	  }
+     if('${list_size%10>0}'=='true'){
+        number_click('${Integer.valueOf(list_size/10)+1}');
+     }else{
+        number_click('${Integer.valueOf(list_size/10)}');
+     }
 }
 function number_down() {
-	  number_click(1);
+     number_click(1);
 }
 if(size>10){
-	$(function (){
-	      $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_down()'><<</div> ");
-	      $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_onedown()'><</div> ");
-	      if('${list_size%10>0}'=='true'){
-	      	ssize='${Integer.valueOf(list_size/10)+1}';
-	  	}else{
-	  		ssize='${Integer.valueOf(list_size/10)}';
-	  	}
-	      for(i=0;i<ssize;i++){
-	         $('#num_2').append("<div id='a"+(i+1)+"' style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer; margin-left:10px;' onclick='number_click("+(i+1)+")'>"+(i+1)+"</div>");
+   $(function (){
+         $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_down()'><<</div> ");
+         $('#num_1').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_onedown()'><</div> ");
+         if('${list_size%10>0}'=='true'){
+            ssize='${Integer.valueOf(list_size/10)+1}';
+        }else{
+           ssize='${Integer.valueOf(list_size/10)}';
+        }
+         for(i=0;i<ssize;i++){
+            $('#num_2').append("<div id='a"+(i+1)+"' style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer; margin-left:10px;' onclick='number_click("+(i+1)+")'>"+(i+1)+"</div>");
          $("#num_2").append("<form action='acsearch' method='post' name='numbtn"+(i+1)+"'>"
                  +"<input type='hidden' name='start' id='start"+(i+1)+"'>"
                  +"<input type='hidden' name='end' id='last"+(i+1)+"'>"
                  +"<input type='submit' style='display:none;' id='numbtn"+(i+1)+"'>"
                +"</form>");
          if(i+1=='${Integer.valueOf(list_last/10)}'){
-      	   $("#a"+(i+1)).css("background-color","#383838f2");
-      	   $("#a"+(i+1)).css("color","#fff");
+            $("#a"+(i+1)).css("background-color","#383838f2");
+            $("#a"+(i+1)).css("color","#fff");
          }
       }
       $('#num_3').append("<div style='margin: 0 auto; text-decoration: none; width: 30px; height: 20px; cursor:pointer'><a href='javascript:number_oneup();' style='text-decoration: none;'>></a></div> ");
@@ -199,7 +199,6 @@ function title_search() {
 </script>
 <style type="text/css">
 .div1 {
-padding-top:10px;
 padding-bottom: 30px;
 }
 .div2{
@@ -219,7 +218,7 @@ padding-top: 40px;
     .table th {
       color: #168;
       background: #f0f6f9;
-       text-align: center; 
+/*       text-align: center; */
     }
     .table th, .table td {
       padding: 10px;
@@ -267,26 +266,10 @@ font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Ap
 }
 .btn:hover{
 background: #7d7d7d;
-	color:white;
-	transition: all 0.12s ease-in-out;
+   color:white;
+   transition: all 0.12s ease-in-out;
 }
- td:nth-child(2){
-    	
-    	text-align: center;
-    }
-     td:nth-child(3){
-		width:50%;    	
-    }
- 
-    td:nth-child(4){
-    	text-align: center;
-    }
-      td:nth-child(5){
-    	text-align: center;
-    }
-    td:nth-child(6){
-    	text-align: center;
-    }
+
 .util{
 padding-bottom: 10px;}
 </style>
@@ -408,20 +391,17 @@ padding-bottom: 10px;}
                         <c:set var="doneLoop" value="false"/> 
                      <c:forEach var="list" items="${listAll}">
                   <tr class="rows">
-                  <c:choose>
-                     <c:when test="${list.id.contains('/admin/')}">
-                        <c:set var="doneLoop" value="true"/> 
-                     </c:when>
-                     <c:otherwise>
+                  
+                     
+                     
                         <td><input type="checkbox" name="checkBtn"></td>
                         <td>${list.id}</td>
                       <td>${list.pw}</td>
                       <td>${list.name}</td>
                       <td>${list.addr1}&nbsp;${list.addr2 }&nbsp;${list.addr3 }</td>
                       <td>${list.phon}</td>
-                      
-                     </c:otherwise>
-                  </c:choose>
+                     
+                  
                   </tr>
                   </c:forEach>   
                </table>
@@ -447,10 +427,10 @@ padding-bottom: 10px;}
          </div>
       </div>
      <div align="center">
-    	<div style="display: flex; flex-flow:low; margin-bottom: 50px; justify-content: center;align-items: center;" align="center">
-    		<div id="num_1" style="display: flex; flex-flow:low; width: 100px;"></div>
-    		<div id="num_2" style="display: flex; flex-flow:low;"></div>
-    		<div id="num_3" style="display: flex; flex-flow:low; width: 100px;"></div>
+       <div style="display: flex; flex-flow:low; margin-bottom: 50px; justify-content: center;align-items: center;" align="center">
+          <div id="num_1" style="display: flex; flex-flow:low; width: 100px;"></div>
+          <div id="num_2" style="display: flex; flex-flow:low;"></div>
+          <div id="num_3" style="display: flex; flex-flow:low; width: 100px;"></div>
         </div>
         <form name="list_form" action="acsearch_search" method="post">
       <input type="hidden" name="search_result" id="search_result">
@@ -462,7 +442,7 @@ padding-bottom: 10px;}
    <input type="hidden" value="${list_type_result}" id="type_result_init">
         
     </div>
-		</div>
+      </div>
 
 
 

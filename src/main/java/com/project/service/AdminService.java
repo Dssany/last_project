@@ -133,8 +133,8 @@ public class AdminService {
       dao.AddProduct(dto);
    }
 
-   public void DelProduct(String product) {
-      dao.DelProduct(product);
+   public int DelProduct(String product) {
+      return dao.DelProduct(product);
    }
    public void accart_list(Model model,String start,String end) {
       PayDTO dto = new PayDTO();
