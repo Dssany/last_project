@@ -156,12 +156,12 @@ public class AdminController {
    
    
    @RequestMapping("NoticeContent")
-   public String view(AdminNoticeDTO dto, Model model,@RequestParam("bno") Integer bno) {
+   public String view(AdminNoticeDTO dto, Model model,@RequestParam("num") Integer num) {
       System.out.println(dto.getBno());
 
 
-      System.out.println(bno + "bno check");
-      dto.setBno(bno);
+      System.out.println(num + "bno check");
+      dto.setBno(num);
       
       serviceAdm.view(dto,model);
 

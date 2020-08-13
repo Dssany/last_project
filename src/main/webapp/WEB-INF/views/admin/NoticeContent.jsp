@@ -93,8 +93,8 @@ function ad(d) {
                 <div class="top-left-part">
                     <!-- Logo -->
                     <a href="index" style="color: black;">
-            			<img class="img1" src="resources/img/MAKE1.PNG" style="width:200px; height: 69PX; color:#F6F6F6;">
-        			</a>  
+                     <img class="img1" src="resources/img/MAKE1.PNG" style="width:200px; height: 69PX; color:#F6F6F6;">
+                 </a>  
                 </div>
                 <!-- /Logo -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
@@ -165,7 +165,7 @@ function ad(d) {
                         <div class="white-box">
                             <h3 class="box-title">NOTICE VIEW</h3>
 <!-- 여기서 부터 내용 -->
-					<div align="center" class="div1">
+               <div align="center" class="div1">
 <form method="post" action="update?bno=${view.bno}">
 <input type="hidden" value="${view.bno}" name="bno">
    <table class="table">
@@ -199,7 +199,7 @@ function ad(d) {
         </tbody>
     </table>
     <input type="button" onclick="location.href='acnotice'"value="목록">
-    <input type="button" onclick="location.href='ModifyNotice?bno=${view.bno}'"value="수정하기">
+    <input type="button" onclick="location.href='ModifyNotice?num=${view.num}'"value="수정하기">
     </form>
  </div>       
 
@@ -233,8 +233,8 @@ function ad(d) {
     <script src="resources/plugins/bower_components/toast-master/js/jquery.toast.js?aa"></script>
 
 <form name="adminHeader_form" method="post">
-	<input type="hidden" id="adminHeader_form_start" name="start" value="1">
-	<input type="hidden" id="adminHeader_form_end" name="end" value="10">
+   <input type="hidden" id="adminHeader_form_start" name="start" value="1">
+   <input type="hidden" id="adminHeader_form_end" name="end" value="10">
 </form>
 </body>
 

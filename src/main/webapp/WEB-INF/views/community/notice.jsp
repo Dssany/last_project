@@ -188,7 +188,7 @@ font: 400 14px 'Nanum Gothic',Arial,sans serif;
                            </c:otherwise>
                         </c:choose>
                      <td class="cell" data-title="제목">
-                        <a class="title" href="noticeview?bno=${adminList.bno}&maxSize=${listAll.size()}">${adminList.title }</a>
+                        <a class="title" href="noticeview?num=${adminList.num}&maxSize=${listAll.size()}">${adminList.title }</a>
                      </td>
                      <td class="cell" data-title="작성자">
                         관리자

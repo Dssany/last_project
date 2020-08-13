@@ -68,11 +68,11 @@ background: #7d7d7d;
    <caption><font style="font: 400 30px 'Poppins',sans-serif;">Notice</font>
    
             <div>
-               <c:if test="${view.bno < maxSize}">
-               <input style="position: relative; left:450px;" class="btn" type="button" onclick="location.href='noticeview?bno=${view.bno+1}&maxSize=${maxSize}'"value="이전글">
+               <c:if test="${view.num-1 > 0}">
+               <input style="position: relative; left:450px;" class="btn" type="button" onclick="location.href='noticeview?num=${view.num-1}&maxSize=${maxSize}'"value="이전글">
                </c:if>
-               <c:if test="${view.bno-1 > 0}">
-               <input style="position: relative; left:450px;" class="btn" type="button" onclick="location.href='noticeview?bno=${view.bno-1}&maxSize=${maxSize}'"value="다음글">
+               <c:if test="${view.num < maxSize}">
+               <input style="position: relative; left:450px;" class="btn" type="button" onclick="location.href='noticeview?num=${view.num+1}&maxSize=${maxSize}'"value="다음글">
                </c:if>
                <input style="position: relative; left:450px;" class="btn" type="button" onclick="location.href='notice'"value="목록">
            </div>

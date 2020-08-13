@@ -5,6 +5,12 @@
 
 <mapper namespace="com.project.mybatis.myMapper">
 
+<!--    배너 관리     -->
+   <select id="bannerAll" resultType="bannerdto">
+      select * from main_img
+   </select>
+   
+   
    <!-- 상품 리스트 -->
    <select id="dataselectAll_List2" resultType="datalistdto">
       select * from
@@ -16,7 +22,7 @@
    </select>
    
    <select id="select_name_Pick" resultType="datalistdto">
-   		select * from data_list where img like '%pitting%' and product=#{product}
+         select * from data_list where img like '%pitting%' and product=#{product}
    </select>
    <select id="selectPick" resultType="datalistdto"
       parameterType="String">
@@ -65,7 +71,7 @@
    <delete id="DelProduct" parameterType="datalistdto">
       delete data_list where product=#{product}
    </delete>
-	 <select id="select_price" parameterType="String" resultType="String">
+    <select id="select_price" parameterType="String" resultType="String">
       select price from data_list where product=#{product}      
    </select>
    <select id="selectall_count" resultType="String">
@@ -79,16 +85,12 @@
    <!-- 유저 정보 -->
    <select id="selectAll_User" resultType="userdto"
       parameterType="userdto">      <!-- com.care.mybatis.myMapper.listAll을 통해 경로 설정이 가능 -->
-      select * from (select rownum num, a.* from (select * from self_design) a ) where num between #{start} and #{end}
+      select * from self_design
    </select>
    <select id="select_User" resultType="userdto"
       parameterType="userdto">
       select * from self_design where id=#{id}
    </select>
-   <select id="select_user_count" resultType="String">
-   	select count(*) from self_design
-   </select>
-   
    <insert id="insert_User" parameterType="userdto">
       insert into self_design
       values(#{id},#{pw},#{name},#{addr1},#{addr2},#{addr3},#{phon},#{email})
@@ -117,30 +119,10 @@
       select * from self_design where id=#{id} and
       email=#{email}
    </select>
-	<select id="listSearch_id" resultType="userdto" parameterType="userdto">
-      select * from (select rownum num, a.* from (select * from self_design where id LIKE '%'||#{id}||'%'
-      ) a ) where num between #{start} and #{end}
-   </select>
-   <select id="listSearch_name" resultType="userdto" parameterType="userdto">
-      select * from (select rownum num, a.* from (select * from self_design where name like '%'||#{name}||'%'
-      ) a ) where num between #{start} and #{end}
-   </select>
-   <select id="listSearch_phon" resultType="userdto" parameterType="userdto">
-      select * from (select rownum num, a.* from (select * from self_design where phon = #{phon}
-      ) a ) where num between #{start} and #{end}
-   </select>
-   <select id="listSearch_id_count" resultType="String" parameterType="userdto">
-      select count(*) from self_design where id like '%'||#{id}||'%'
-   </select>
-   <select id="listSearch_name_count" resultType="String" parameterType="userdto">
-      select count(*) from self_design where name like '%'||#{name}||'%'
-   </select>
-   <select id="listSearch_phon_count" resultType="String" parameterType="userdto">
-      select count(*) from self_design where phon = #{phon}
-   </select>
 
 
-   <!-- Q&A 게시물 관련 -->
+
+<!-- Q&A 게시물 관련 -->
    <select id="selectAll_Commnuity" resultType="comdto">
       select * from (select rownum num, a.* from (select * from board_sys order by case when writer like '/admin/' then writer end asc,bno desc) a ) where num between #{start} and #{end}
    </select>
@@ -339,8 +321,7 @@
       order by writer asc, bno desc) a ) where num between #{start} and #{end}
    </select>
    <select id="view_Notice" resultType="Noticedto">
-      select * from notice where
-      bno=#{bno}
+      select * from (select rownum num, a.* from (select * from notice) a ) where num=#{num}
    </select>
    <update id="count_Notice">
       update notice set viewcnt = viewcnt + 1 where
@@ -425,8 +406,5 @@
    <select id="selectChart" resultType="Paydto">
       select * from pay where status='완료'
    </select>
-<!--    배너 관리     -->
-   <select id="bannerAll" resultType="bannerdto">
-      select * from main_img
-   </select>
+
 </mapper>

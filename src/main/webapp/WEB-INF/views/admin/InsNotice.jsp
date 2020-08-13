@@ -105,7 +105,37 @@ padding-top: 40px;
       text-align: center;
     }
     .table caption{caption-side: bottom; display: none;}
-  
+  .btn{
+font-family: "Roboto","Arial","Nanum Gothic","돋움","Dotum","Apple Gothic","Apple SD Gothic Neo",sans-serif;
+    color: #7d7d7d;
+    font-size: 12px;
+    height: 27px;
+    line-height: 27px;
+    cursor: pointer;
+    outline: none;
+    align-items: right;
+ 
+    padding: 0px 8px 0 9px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    margin: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+    -moz-border-radius: 6px 6px 6px 6px;
+    border-radius: 6px 6px 6px 6px;
+   
+}
+.btn:hover{
+background: #7d7d7d;
+   color:white;
+   transition: all 0.12s ease-in-out;
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript">
@@ -269,8 +299,8 @@ $(document).ready(function() {
 
    </table>
    <div class="div2">
-      <input type="button" id="save" value="저장"/>
-      <button type="reset">취소</button>
+      <input type="button" class="btn" id="save" value="저장"/>
+      <button class="btn" type="reset">취소</button>
    </div>
    </form>
 </div>

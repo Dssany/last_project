@@ -101,7 +101,10 @@ $(function(){
       });    
 });
  
- 
+function ad(d) {
+	   $("form[name=adminHeader_form]").attr("action",d);
+	   adminHeader_form.submit();
+	}
  
 </script>
 </head>
@@ -239,7 +242,7 @@ $(function(){
     </table>
         <div class="div2">
 		<input type="button" id="save" value="저장"/>
-		<button type="reset">취소</button>
+		<button onclick="history.back()" type="reset">취소</button>
 		</div>
     </form>
     </div>

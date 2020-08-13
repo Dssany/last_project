@@ -12,8 +12,19 @@ public class AdminNoticeDTO {
    private int viewcnt;
    private String start;
    private String end;
+   private int num;
+   
+   
 
-   public String getStart() {
+   public int getNum() {
+   return num;
+}
+
+public void setNum(int num) {
+   this.num = num;
+}
+
+public String getStart() {
       return start;
    }
 

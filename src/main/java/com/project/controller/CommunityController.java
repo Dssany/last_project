@@ -128,12 +128,12 @@ public class CommunityController {
       return "community/notice";
    }
    @RequestMapping("noticeview")
-   public String noticeview(AdminNoticeDTO dto, Model model,@RequestParam("bno") Integer bno ,@RequestParam("maxSize") Integer maxSize) {
-      System.out.println(dto.getBno());
+   public String noticeview(AdminNoticeDTO dto, Model model,@RequestParam("num") Integer num ,@RequestParam("maxSize") Integer maxSize) {
+      System.out.println(dto.getNum());
       System.out.println(maxSize);
       model.addAttribute("maxSize", maxSize);
-      System.out.println(bno + "bno check");
-      dto.setBno(bno);
+//      System.out.println(bno + "bno check");
+      dto.setNum(num);
       serviceAdm.count(dto);
       serviceAdm.view(dto,model);
       return "community/noticeview";

@@ -388,7 +388,7 @@ function ad(d) {
       <td><input type="checkbox" name="checkBtn"></td>
          <td>${adminList.bno }</td>
          <td>
-         <a style="text-decoration: none;"class="title" href="NoticeContent?bno=${adminList.bno}">
+         <a style="text-decoration: none;"class="title" href="NoticeContent?num=${adminList.num}">
          ${adminList.title }</a></td>
          <td>${adminList.writer }</td>
          <td style="font-size: 2px;">${adminList.regdate }</td>
