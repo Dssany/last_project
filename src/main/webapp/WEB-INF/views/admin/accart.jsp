@@ -32,6 +32,7 @@
 <title>(관리자)게시판 관리</title>
 <style type="text/css">
 .div1 {
+padding-top:50px;
 padding-bottom: 50px;
 }
 .div2{
@@ -223,13 +224,11 @@ function title_search() {
    
    $(function() {
       var ta=0;
-      for(i=1;i<'${paylist.get(paylist.size()-1).rno+1}';i++){
-         if($("#prict_text"+i).text()!=""){
-            ta+=parseInt($("#prict_text"+i).text());
+         for(i=1;i<${paylist.size()+1};i++){
+            ta+=parseInt($("#price_text"+i).text());
          }
-      }
       $("#total").text(ta)
-   })
+   });
 </script>
 </head>
 <body class="fix-header">
@@ -331,12 +330,11 @@ function title_search() {
                         <div class="white-box">
                             <h3 class="box-title">BUY MANAGE</h3>
 <!-- 여기서 부터 내용 -->
-               <div align="center" class="div1">
+               <div align="center" class="div1" style="padding-top: 50px;">
                
    <table border="1" class="table">
    <caption style="text-align:right;">
       총 금액 : <label id="total">
-         sdasas
       </label>
    </caption>
          <tr>
@@ -357,7 +355,7 @@ function title_search() {
          <td><div style="background-image: url('${payList.img}'); width:200px; height: 200px;background-size:200px,200px;"></div></td>
          <td>${payList.product}</td>
          <td>${payList.day}</td>
-         <td><label style="display: none" id="prict_text${payList.rno}">${payList.count*payList.price}</label>
+         <td><label style="display: none" id="price_text${payList.num}">${payList.count*payList.price}</label>
          <fmt:formatNumber value="${payList.count*payList.price}" pattern="#,###" />원</td>
       </tr>
       </c:forEach>

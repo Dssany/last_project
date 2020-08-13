@@ -21,10 +21,19 @@ public class PayDTO {
    private String rno;
    private String start;
    private String end;
+   private String num;
+   
+   
+   
+   public String getNum() {
+   return num;
+}
 
-   
-   
-   public String getStart() {
+public void setNum(String num) {
+   this.num = num;
+}
+
+public String getStart() {
       return start;
    }
 
