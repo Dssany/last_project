@@ -273,57 +273,58 @@ public class ProjectController {
    }
 
    @RequestMapping("data")
-      public String data(Model model, @RequestParam String type, @RequestParam String start, @RequestParam String end,
-            HttpServletRequest request) {
-         CookieDTO dto = new CookieDTO();
-         CookieUtils cook = new CookieUtils();
-         List<DataListDTO> img_list;
+   public String data(Model model, @RequestParam String type, @RequestParam String start, @RequestParam String end,
+         HttpServletRequest request) {
+      CookieDTO dto = new CookieDTO();
+      CookieUtils cook = new CookieUtils();
+      List<DataListDTO> img_list;
 
-         ArrayList<String> newarr = new ArrayList<String>();
-         ArrayList<String> newtype = new ArrayList<String>();
-         ArrayList<String> newprice = new ArrayList<String>();
-         ArrayList<String> newproduct = new ArrayList<String>();
-         try {
-            List<String> arr = cook.getValueList("text1", request);
-            if (arr.size() == 1) {
-               dto.setProduct1(arr.get(0));
-               img_list = datalistdao.select_cookie_one(dto);
-            } else if (arr.size() == 2) {
-               dto.setProduct1(arr.get(0));
-               dto.setProduct2(arr.get(1));
-               img_list = datalistdao.select_cookie_two(dto);
-            } else if (arr.size() == 3) {
-               dto.setProduct1(arr.get(0));
-               dto.setProduct2(arr.get(1));
-               dto.setProduct3(arr.get(2));
-               img_list = datalistdao.select_cookie_three(dto);
-            } else if (arr.size() == 4) {
-               dto.setProduct1(arr.get(0));
-               dto.setProduct2(arr.get(1));
-               dto.setProduct3(arr.get(2));
-               dto.setProduct4(arr.get(3));
-               img_list = datalistdao.select_cookie_four(dto);
-            } else {
-               img_list = new ArrayList<DataListDTO>();
-            }
-            for (int x = 0; x < img_list.size(); x++) {
-               System.out.println(img_list.get(x).getImg());
-               newarr.add("'" + img_list.get(x).getImg() + "'");
-               newtype.add("'" + img_list.get(x).getType() + "'");
-               newprice.add("'" + img_list.get(x).getPrice() + "'");
-               newproduct.add("'" + img_list.get(x).getProduct() + "'");
-            }
-            model.addAttribute("newsee_list", newarr);
-            model.addAttribute("newsee_type", newtype);
-            model.addAttribute("newsee_price", newprice);
-            model.addAttribute("newsee_product", newproduct);
-         } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+      ArrayList<String> newarr = new ArrayList<String>();
+      ArrayList<String> newtype = new ArrayList<String>();
+      ArrayList<String> newprice = new ArrayList<String>();
+      ArrayList<String> newproduct = new ArrayList<String>();
+      try {
+         List<String> arr = cook.getValueList("text3", request);
+         if (arr.size() == 1) {
+            dto.setProduct1(arr.get(0));
+            img_list = datalistdao.select_cookie_one(dto);
+         } else if (arr.size() == 2) {
+            dto.setProduct1(arr.get(0));
+            dto.setProduct2(arr.get(1));
+            img_list = datalistdao.select_cookie_two(dto);
+         } else if (arr.size() == 3) {
+            dto.setProduct1(arr.get(0));
+            dto.setProduct2(arr.get(1));
+            dto.setProduct3(arr.get(2));
+            img_list = datalistdao.select_cookie_three(dto);
+         } else if (arr.size() == 4) {
+            dto.setProduct1(arr.get(0));
+            dto.setProduct2(arr.get(1));
+            dto.setProduct3(arr.get(2));
+            dto.setProduct4(arr.get(3));
+            img_list = datalistdao.select_cookie_four(dto);
+         } else {
+            img_list = new ArrayList<DataListDTO>();
          }
-         service.data(model, type, start, end);
-         return "default/data";
+         for (int x = 0; x < img_list.size(); x++) {
+            System.out.println(img_list.get(x).getImg());
+            newarr.add("'" + img_list.get(x).getImg() + "'");
+            newtype.add("'" + img_list.get(x).getType() + "'");
+            newprice.add("'" + img_list.get(x).getPrice() + "'");
+            newproduct.add("'" + img_list.get(x).getProduct() + "'");
+         }
+         model.addAttribute("select_type", type);
+         model.addAttribute("newsee_list", newarr);
+         model.addAttribute("newsee_type", newtype);
+         model.addAttribute("newsee_price", newprice);
+         model.addAttribute("newsee_product", newproduct);
+      } catch (UnsupportedEncodingException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
       }
+      service.data(model, type, start, end);
+      return "default/data";
+   }
    
    @RequestMapping("orderList")
    public String orderList(Model model,HttpServletRequest request) {

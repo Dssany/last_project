@@ -164,8 +164,8 @@ img.style.cursor = 'pointer';
 img.style.borderRadius = options.circle ? '50%' : '';
 img.style.boxShadow = options.shadow ? '0 0 4px rgba(0,0,0,.16), 0 4px 4px rgba(0,0,0,.24)' : '';
 img.onclick = function(e) {
-   window.open('talk.naver.com/W4UJZ0', 'talktalk', 'scrollbars=1, resizable=1, width='+window.screen.width+', height='+window.screen.height+'');
-}
+      window.open('https://talk.naver.com/W4UJZ0', 'talktalk', 'scrollbars=1, resizable=1, width='+window.screen.width+', height='+window.screen.height+'');
+   }
 d.getElementsByTagName('html')[0].appendChild(img);
 })(document);
 </script>
@@ -211,6 +211,7 @@ d.getElementsByTagName('html')[0].appendChild(img);
       function number_down() {
          number_click(1);
      }
+      var y=${list_type}
       if(size>9){
          $(function (){
             $('#num').append("<div style='margin: 0 auto;border: 1px solid #555; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_down()'><<</div> ");
@@ -223,7 +224,7 @@ d.getElementsByTagName('html')[0].appendChild(img);
             for(i=0;i<ssize;i++){
                $('#num').append("<div id='a"+(i+1)+"' style='margin: 0 auto;border: 1px solid #555; text-decoration: none; width: 30px; height: 20px; cursor:pointer' onclick='number_click("+(i+1)+")'>"+(i+1)+"</div>");
                $("#num").append("<form action='data' method='post' name='numbtn"+(i+1)+"'>"
-                       +"<input type='hidden' value='${list_type}' name='type'>"
+                       +"<input type='hidden' value='${select_type}' name='type'>"
                        +"<input type='hidden' name='start' id='start"+(i+1)+"'>"
                        +"<input type='hidden' name='end' id='last"+(i+1)+"'>"
                        +"<input type='submit' style='display:none;' id='numbtn"+(i+1)+"'>"
@@ -267,14 +268,14 @@ d.getElementsByTagName('html')[0].appendChild(img);
                 }
                 $("#tr"+c).append("<td onmouseleave=style='' onmouseover=style='opacity:0.5;'>"
                 +"<div style='width:312px; height:390px;margin-left:10px;background-image:url("+"\""+s+"\""+");background-size:312px 390px;' onclick='imgin("+a+")' ></div>"
-                +"<div style='width:312px; overflow: hidden;'><p align='center' style='margin-top: 5px; font-family:궁서체;' id='imgname"+a+"'>"+r[i]+"</p> </div>"
-                   +"<p align='center' style='margin-top: 5px; font-family:궁서체;' id='imgmoney"+a+"'>"+"가격 : &nbsp;"+u[i]+"</p>"
+                +"<div style='width:312px; overflow: hidden;'><p align='center' style='margin-top: 5px; font-family:Yu Gothic;' id='imgname"+a+"'>"+r[i]+"</p> </div>"
+                   +"<p align='center' style='margin-top: 5px; font-family:Yu Gothic;' id='imgmoney"+a+"'>"+"가격 : &nbsp;"+u[i]+"</p>"
                    +"<p align='center' style='margin-top: 5px; color:gray;' >"+"리뷰 : &nbsp;"+z[i]+"</p>"
                    +"</td>");
                 $("#tr"+c).append("<form action='design' name='fimg"+a+"' method='post'>"
                          +"<input type='hidden' value='"+r[i]+"' name='imgname'>"
                          +"<input type='hidden' value='"+u[i]+"' name='imgmoney'>"
-                         +"<input type='hidden' value='${list_type}' name='imggoods'>"
+                         +"<input type='hidden' value='"+y[i]+"' name='imggoods'>"
                          +"<input type='submit' style='display:none;' id='bmit"+a+"'>"
                        +"</form>")
              
