@@ -477,7 +477,6 @@ padding-bottom: 10px;}
     <script src="resources/plugins/bower_components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
     <!-- Sparkline chart JavaScript -->
     <script src="resources/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
-    <!-- Custom Theme JavaScript -->
     <script src="resources/adjs/custom.min.js"></script>
     <script src="resources/adjs/dashboard1.js"></script>
     <script src="resources/plugins/bower_components/toast-master/js/jquery.toast.js?a"></script>
